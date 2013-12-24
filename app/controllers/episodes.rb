@@ -26,7 +26,7 @@ class Pigro
     elsif not current_user.staff?
       @error = 'Go home, this is not a place for you.'
     else
-      @show = Show.all
+      @show  = Show.all
     end
     erb :'episode/edit'
   end
@@ -37,7 +37,7 @@ class Pigro
     elsif not current_user.staff?
       @error = 'Go home, this is not a place for you.'
     else
-      @show = Show.all
+      @show  = Show.all
     end
     erb :'episode/delete'
   end
@@ -48,7 +48,7 @@ class Pigro
     elsif not current_user.staff?
       @error = 'Go home, this is not a place for you.'
     elsif fields? :name, :go
-      show = Show.get_show params[:name]
+      show   = Show.get_show params[:name]
       if show
         @show  = show
       else
@@ -59,12 +59,12 @@ class Pigro
     else
       data = {
         :translation => params[:translation] == 'on',
-        :editing     => params[:editing]     == 'on',
+        :editing     => params[:editing    ] == 'on',
         :typesetting => params[:typesetting] == 'on',
-        :encoding    => params[:encoding]    == 'on',
-        :checking    => params[:checking]    == 'on',
-        :timing      => params[:timing]      == 'on',
-        :qchecking   => params[:qchecking]   == 'on',
+        :encoding    => params[:encoding   ] == 'on',
+        :checking    => params[:checking   ] == 'on',
+        :timing      => params[:timing     ] == 'on',
+        :qchecking   => params[:qchecking  ] == 'on'
       }
 
       episode = Episode.add params[:name], params[:episode].to_i, data
@@ -97,12 +97,12 @@ class Pigro
     else
       data = {
         :translation => params[:translation] == 'on',
-        :editing     => params[:editing]     == 'on',
+        :editing     => params[:editing    ] == 'on',
         :typesetting => params[:typesetting] == 'on',
-        :encoding    => params[:encoding]    == 'on',
-        :checking    => params[:checking]    == 'on',
-        :timing      => params[:timing]      == 'on',
-        :qchecking   => params[:qchecking]   == 'on',
+        :encoding    => params[:encoding   ] == 'on',
+        :checking    => params[:checking   ] == 'on',
+        :timing      => params[:timing     ] == 'on',
+        :qchecking   => params[:qchecking  ] == 'on'
       }
 
       episode = Episode.edit params[:name], params[:episode].to_i, data

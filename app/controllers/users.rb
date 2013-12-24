@@ -22,7 +22,6 @@ class Pigro
     else
       @error   = 'You are not logged in.'
     end
-
     erb :'user/logout'
   end
 
@@ -47,7 +46,7 @@ class Pigro
     elsif not current_user.staff?
       @error = 'Go home, this is not a place for you.'
     else
-      @users  = User.all
+      @users = User.all
     end
     erb :'user/change_level'
   end
@@ -66,7 +65,6 @@ class Pigro
         @error   = 'Login failed.'
       end
     end
-
     erb :'user/login'
   end
 
@@ -86,7 +84,6 @@ class Pigro
         @success = 'Sign up successful.'
       end
     end
-
     erb :'user/signup'
   end
 
@@ -102,7 +99,6 @@ class Pigro
     else
       @error   = 'The given username doesn\'t exists.'
     end
-
     erb :'user/lost_password'
   end
 
@@ -116,7 +112,6 @@ class Pigro
     else
       @error   = 'Error setting the password.'
     end
-
     erb :'user/password_recovery'
   end
 

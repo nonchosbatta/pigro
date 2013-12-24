@@ -48,16 +48,16 @@ class Pigro
     elsif not fields? :name
       @error = 'To add a show, you need almost to send its name.'
     else
-      data = {
+      data   = {
         :tot_episodes => params[:tot_episodes] ? params[:tot_episodes].to_i : 13,
-        :airing       => params[:airing],
-        :translator   => params[:translator],
-        :editor       => params[:editor],
-        :typesetter   => params[:typesetter],
-        :encoder      => params[:encoder],
-        :checker      => params[:checker],
-        :timer        => params[:timer],
-        :qchecker     => params[:qchecker]
+        :airing       => params[:airing      ],
+        :translator   => params[:translator  ],
+        :editor       => params[:editor      ],
+        :typesetter   => params[:typesetter  ],
+        :encoder      => params[:encoder     ],
+        :checker      => params[:checker     ],
+        :timer        => params[:timer       ],
+        :qchecker     => params[:qchecker    ]
       }
 
       show = Show.add params[:name], data
@@ -78,7 +78,7 @@ class Pigro
     elsif not fields? :name
       @error = 'To edit a show, you need almost to send its name.'
     elsif fields? :go
-      show  = Show.get_show params[:name]
+      show   = Show.get_show params[:name]
       if show
         @show  = show
       else
@@ -87,15 +87,15 @@ class Pigro
     else
       data = {
         :tot_episodes => params[:tot_episodes] ? params[:tot_episodes].to_i : 13,
-        :airing       => params[:airing],
-        :status       => params[:status]       ? params[:status].to_sym     : :ongoing,
-        :translator   => params[:translator],
-        :editor       => params[:editor],
-        :typesetter   => params[:typesetter],
-        :encoder      => params[:encoder],
-        :checker      => params[:checker],
-        :timer        => params[:timer],
-        :qchecker     => params[:qchecker]
+        :airing       => params[:airing      ],
+        :status       => params[:status      ] ? params[:status].to_sym     : :ongoing,
+        :translator   => params[:translator  ],
+        :editor       => params[:editor      ],
+        :typesetter   => params[:typesetter  ],
+        :encoder      => params[:encoder     ],
+        :checker      => params[:checker     ],
+        :timer        => params[:timer       ],
+        :qchecker     => params[:qchecker    ]
       }
 
       show = Show.edit params[:name], data
