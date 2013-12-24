@@ -8,8 +8,8 @@ Pigro is a webapp allowing you to publish the status of each episode of the seri
 
 Ethimology
 =============
-<RoxasShadowRS> comunque stanco come nome inizia a stancarmi :V
+&lt;RoxasShadowRS&gt; comunque stanco come nome inizia a stancarmi :V
 
-<Helltilt> eh :VV
+&lt;Helltilt&gt; eh :VV
 
-<Helltilt> chiamalo pigro perché stanco ti aveva stancato
+&lt;Helltilt&gt; chiamalo pigro perché stanco ti aveva stancato
