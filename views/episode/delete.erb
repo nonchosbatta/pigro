@@ -1,0 +1,23 @@
+<%  @title = 'Delete episode' %>
+<%= erb :'template/header' %>
+
+<% if defined? @error %>
+  <p class="error"><%= @error %></p>
+<% elsif defined? @success %>
+  <p class="success"><%= @success %></p>
+<% elsif defined? @show %>
+  <form action="<%= @current_url %>" method="post">
+
+    <select name="name">
+      <% @show.each { |show| %>
+        <option value="<%= show.name %>"><%= show.name %></option>
+      <% } %>
+    </select><br>
+    
+    <input type="number" name="episode" placeholder="episode"><br>
+    <%= csrf_tag %>
+    <input type="submit" value="Edit">
+  </form>
+<% end %>
+
+<%= erb :'template/footer' %>

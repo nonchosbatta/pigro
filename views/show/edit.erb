@@ -1,0 +1,46 @@
+<%  @title = 'Edit show' %>
+<%= erb :'template/header' %>
+
+<% if defined? @error %>
+  <p class="error"><%= @error %></p>
+<% elsif defined? @success %>
+  <p class="success"><%= @success %></p>
+<% elsif defined? @shows %>
+  <form action="<%= @current_url %>" method="post">
+
+    <select name="name">
+      <% @shows.each { |show| %>
+        <option value="<%= show.name %>"><%= show.name %></option>
+      <% } %>
+    </select><br>
+
+    <%= csrf_tag %>
+    <input type="submit" name="go" value="Edit">
+  </form>
+<% elsif defined? @show %>
+  <form action="<%= @current_url %>" method="post">
+    <input type="text"   placeholder="<%= @show.name %>"  readonly><br>
+    <input type="number" placeholder="number of episodes" name="tot_episodes" value="<%= @show.tot_episodes %>"><br>
+    <input type="text"   placeholder="airing"             name="airing"       value="<%= @show.airing       %>"><br>
+    <input type="text"   placeholder="translator"         name="translator"   value="<%= @show.translator   %>"><br>
+    <input type="text"   placeholder="editor"             name="editor"       value="<%= @show.editor       %>"><br>
+    <input type="text"   placeholder="typesetter"         name="typesetter"   value="<%= @show.typesetter   %>"><br>
+    <input type="text"   placeholder="encoder"            name="encoder"      value="<%= @show.encoder      %>"><br>
+    <input type="text"   placeholder="checker"            name="checker"      value="<%= @show.checker      %>"><br>
+    <input type="text"   placeholder="timer"              name="timer"        value="<%= @show.timer        %>"><br>
+    <input type="text"   placeholder="qchecker"           name="qchecker"     value="<%= @show.qchecker     %>"><br>
+    
+    <select name="status" id="status">
+      <option>-- Status --</option>
+      <option value="ongoing"  <%= 'selected' if @show.status == :ongoing  %>>On going</option>
+      <option value="finished" <%= 'selected' if @show.status == :finished %>>Finished</option>
+      <option value="dropped"  <%= 'selected' if @show.status == :dropped  %>>Dropped </option>
+    </select><br>
+
+    <%= csrf_tag %>
+    <input type="hidden" name="name" value="<%= @show.name %>">
+    <input type="submit" name="edit" value="Edit">
+  </form>
+<% end %>
+
+<%= erb :'template/footer' %>

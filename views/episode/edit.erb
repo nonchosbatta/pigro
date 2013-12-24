@@ -1,0 +1,39 @@
+<%  @title = 'Edit episode' %>
+<%= erb :'template/header' %>
+
+<% if defined? @error %>
+  <p class="error"><%= @error %></p>
+<% elsif defined? @success %>
+  <p class="success"><%= @success %></p>
+<% elsif defined? @show %>
+  <form action="<%= @current_url %>" method="post">
+  
+    <select name="name">
+      <% @show.each { |show| %>
+        <option value="<%= show.name %>"><%= show.name %></option>
+      <% } %>
+    </select><br>
+
+    <input type="number" name="episode" placeholder="episode"><br>
+    <%= csrf_tag %>
+    <input type="submit" name="go" value="Edit">
+  </form>
+<% elsif defined? @episode %>
+  <form action="<%= @current_url %>" method="post">
+    <input type="text"     placeholder="<%= @name            %>" readonly><br>
+    <input type="number"   placeholder="<%= @episode.episode %>" readonly><br>
+    <input type="checkbox" name="translation" id="translation" <%= 'checked' if @episode.translation %>><label for="translation">Translation </label><br>
+    <input type="checkbox" name="editing"     id="editing"     <%= 'checked' if @episode.editing     %>><label for="editing"    >Editing     </label><br>
+    <input type="checkbox" name="typesetting" id="typesetting" <%= 'checked' if @episode.typesetting %>><label for="typesetting">Typesetting </label><br>
+    <input type="checkbox" name="encoding"    id="encoding"    <%= 'checked' if @episode.encoding    %>><label for="encoding"   >Encoding    </label><br>
+    <input type="checkbox" name="checking"    id="checking"    <%= 'checked' if @episode.checking    %>><label for="checking"   >Checking    </label><br>
+    <input type="checkbox" name="timing"      id="timing"      <%= 'checked' if @episode.timing      %>><label for="timing"     >Timing      </label><br>
+    <input type="checkbox" name="checking"    id="qchecking"   <%= 'checked' if @episode.qchecking   %>><label for="qchecking"  >QC          </label><br>
+    <%= csrf_tag %>
+    <input type="hidden" name="name"    value="<%= @name %>">
+    <input type="hidden" name="episode" value="<%= @episode.episode %>">
+    <input type="submit" name="edit"    value="Edit">
+  </form>
+<% end %>
+
+<%= erb :'template/footer' %>

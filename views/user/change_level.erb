@@ -1,0 +1,35 @@
+<%  @title = 'Change user level' %>
+<%= erb :'template/header' %>
+
+<% if defined? @error %>
+  <p class="error"><%= @error %></p>
+<% elsif defined? @success %>
+  <p class="success"><%= @success %></p>
+<% elsif defined? @users %>
+  <form action="<%= @current_url %>" method="post">
+
+    <select name="username">
+      <% @users.each { |user| %>
+        <option value="<%= user.username %>"><%= user.username %></option>
+      <% } %>
+    </select><br />
+
+    <%= csrf_tag %>
+    <input type="submit" name="go" value="Change">
+  </form>
+<% else %>
+  <form action="<%= @current_url %>" method="post">
+
+    <select name="level">
+      <% @levels.each_pair { |key, val| %>
+        <option value="<%= key %>" <%= 'selected' if val == @user.permission_level %>><%= key.capitalize %></option>
+      <% } %>
+    </select><br />
+
+    <%= csrf_tag %>
+    <input type="hidden" value="<%= @user.username %>" name="username">
+    <input type="submit" value="Change">
+  </form>
+<% end %>
+
+<%= erb :'template/footer' %>

@@ -1,0 +1,25 @@
+<%  @title = 'Add show' %>
+<%= erb :'template/header' %>
+
+<% if defined? @error %>
+  <p class="error"><%= @error %></p>
+<% elsif defined? @success %>
+  <p class="success"><%= @success %></p>
+<% else %>
+  <form action="<%= @current_url %>" method="post">
+    <input type="text"   placeholder="name (required)"    name="name"        ><br>
+    <input type="number" placeholder="number of episodes" name="tot_episodes"><br>
+    <input type="text"   placeholder="airing"             name="airing"      ><br>
+    <input type="text"   placeholder="translator"         name="translator"  ><br>
+    <input type="text"   placeholder="editor"             name="editor"      ><br>
+    <input type="text"   placeholder="typesetter"         name="typesetter"  ><br>
+    <input type="text"   placeholder="encoder"            name="encoder"     ><br>
+    <input type="text"   placeholder="checker"            name="checker"     ><br>
+    <input type="text"   placeholder="timer"              name="timer"       ><br>
+    <input type="text"   placeholder="qchecker"           name="qchecker"    ><br>
+    <%= csrf_tag %>
+    <input type="submit" value="Add">
+  </form>
+<% end %>
+
+<%= erb :'template/footer' %>

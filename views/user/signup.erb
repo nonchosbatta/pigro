@@ -1,0 +1,18 @@
+<%  @title = 'Signup' %>
+<%= erb :'template/header' %>
+
+<% if defined? @error %>
+  <p class="error"><%= @error %></p>
+<% elsif defined? @success %>
+  <p class="success"><%= @success %></p>
+<% else %>
+  <form action="<%= @current_url %>" method="post">
+    <input type="text"     placeholder="username" name="username"><br>
+    <input type="email"    placeholder="email"    name="email"   ><br>
+    <input type="password" placeholder="password" name="password"><br>
+    <%= csrf_tag %>
+    <input type="submit" value="Sign up">
+  </form>
+<% end %>
+
+<%= erb :'template/footer' %>

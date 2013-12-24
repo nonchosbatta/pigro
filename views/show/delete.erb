@@ -1,0 +1,22 @@
+<%  @title = 'Delete show' %>
+<%= erb :'template/header' %>
+
+<% if defined? @error %>
+  <p class="error"><%= @error %></p>
+<% elsif defined? @success %>
+  <p class="success"><%= @success %></p>
+<% else %>
+  <form action="<%= @current_url %>" method="post">
+
+    <select name="name">
+      <% @shows.each { |show| %>
+        <option value="<%= show.name %>"><%= show.name %></option>
+      <% } %>
+    </select><br>
+    
+    <%= csrf_tag %>
+    <input type="submit" name="go" value="Delete">
+  </form>
+<% end %>
+
+<%= erb :'template/footer' %>

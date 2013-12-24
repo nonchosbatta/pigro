@@ -1,0 +1,37 @@
+<%  @title = 'Add episode' %>
+<%= erb :'template/header' %>
+
+<% if defined? @error %>
+  <p class="error"><%= @error %></p>
+<% elsif defined? @success %>
+  <p class="success"><%= @success %></p>
+<% elsif defined? @shows %>
+  <form action="<%= @current_url %>" method="post">
+
+    <select name="name">
+      <% @shows.each { |show| %>
+        <option value="<%= show.name %>"><%= show.name %></option>
+      <% } %>
+    </select><br>
+
+    <%= csrf_tag %>
+    <input type="submit" name="go" value="Edit">
+  </form>
+<% else %>
+  <form action="<%= @current_url %>" method="post">
+    <input type="text"     placeholder="<%= @show.name %>" readonly      ><br>
+    <input type="number"   placeholder="episode"           name="episode"><br>
+    <input type="checkbox" name="translation" id="translation"><label for="translation">Translation </label><br>
+    <input type="checkbox" name="editing"     id="editing"    ><label for="editing"    >Editing     </label><br>
+    <input type="checkbox" name="typesetting" id="typesetting"><label for="typesetting">Typesetting </label><br>
+    <input type="checkbox" name="encoding"    id="encoding"   ><label for="encoding"   >Encoding    </label><br>
+    <input type="checkbox" name="checking"    id="checking"   ><label for="checking"   >Checking    </label><br>
+    <input type="checkbox" name="timing"      id="timing"     ><label for="timing"     >Timing      </label><br>
+    <input type="checkbox" name="qchecking"   id="qchecking"  ><label for="qchecking"  >QC          </label><br>
+    <%= csrf_tag %>
+    <input type="hidden" name="name" value="<%= @show.name %>">
+    <input type="submit" value="Add">
+  </form>
+<% end %>
+
+<%= erb :'template/footer' %>
