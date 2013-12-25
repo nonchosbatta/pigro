@@ -8,7 +8,7 @@
 #  0. You just DO WHAT THE FUCK YOU WANT TO.
 #++
 
-class ${ClassName}
+class Pigro
   helpers do
     def current_user
       guest = Guest.new

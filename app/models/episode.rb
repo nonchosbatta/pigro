@@ -56,5 +56,11 @@ class Episode
         :show    => { name: name }
       }.merge(stuff))
     end
+
+    def get_episodes(name, stuff = {})
+      Episode.all({
+        :show    => { name: name }
+      }.merge(stuff))
+    end
   end
 end

@@ -9,20 +9,16 @@ describe 'Pigro' do
     Sinatra::Application
   end
 
-  it 'creates a show' do
-    username = 'Giovanni'
-    email    = 'giovanni@caporocket.pk'
-    password = 'ernesto'
-    level    = User.admin
+  before do
+    @username = 'Giovanni'
+    @email    = 'giovanni@caporocket.pk'
+    @password = 'ernesto'
+    @level    = User.admin
 
-    user = User.signup username, email, password, level
-    user.errors.should                    be_empty
-    user.admin?.should                    be_true
-    User.login(username, password).should be_true
-
-    name = 'Monogatari Series Second Season'
-    data = {
-      :tot_episodes => 23,
+    @show_name    = 'Monogatari Series Second Season'
+    @tot_episodes = 23
+    @show_data    = {
+      :tot_episodes => @tot_episodes,
       :airing       => '2013-12-21 15:30:00+00:00',
       :translator   => 'Gustavo',
       :editor       => 'Patrizio',
@@ -33,27 +29,8 @@ describe 'Pigro' do
       :qchecker     => 'Ernesto'
     }
 
-    show = Show.add name, data
-    show.errors.should                be_empty
-    Show.first(name: name).should_not be_nil
-  end
-
-  it 'edits a show' do
-    name = 'Monogatari Series Second Season'
-    data = { checker: 'Arnoldo' }
-
-    checker = Show.get_show(name).checker
-
-    show  = Show.edit name, data
-    show.should be_true
-
-    Show.get_show(name).checker.should_not be(checker)
-  end
-
-  it 'adds an episode to a show' do
-    name      = 'Monogatari Series Second Season'
-    n_episode = 3
-    data      = {
+    @episode_number = 3
+    @episode_data   = {
       :translation => true,
       :editing     => false,
       :typesetting => true,
@@ -62,49 +39,65 @@ describe 'Pigro' do
       :timing      => false,
       :qchecking   => false
     }
-    
-    episode = Episode.add name, n_episode, data
+  end
+
+  it 'creates a show' do
+    user = User.signup @username, @email, @password, @level
+    user.errors.should                      be_empty
+    user.admin?.should                      be_true
+    User.login(@username, @password).should be_true
+
+    show = Show.add @show_name, @show_data
+    show.errors.should                      be_empty
+    Show.first(name: @show_name).should_not be_nil
+  end
+
+  it 'edits a show' do
+    data    = { checker: 'Arnoldo' }
+    checker = Show.get_show(@show_name).checker
+
+    show    = Show.edit @show_name, data
+    show.should be_true
+
+    Show.get_show(@show_name).checker.should_not be(checker)
+  end
+
+  it 'adds an episode to a show' do
+    episode = Episode.add         @show_name, @episode_number, @episode_data
     episode.should_not    be_false
     episode.errors.should be_empty
 
-    episode = Episode.get_episode name, n_episode
+    episode = Episode.get_episode @show_name, @episode_number
     episode.should_not         be_nil
     episode.translation.should be_true
     episode.editing.should     be_false
   end
 
   it 'edits an episode of a show' do
-    name      = 'Monogatari Series Second Season'
-    n_episode = 3
-    data      = {
+    data = {
       :translation => false,
       :editing     => true
     }
     
-    episode = Episode.edit name, n_episode, data
+    episode = Episode.edit @show_name, @episode_number, data
     episode.should be_true
 
-    episode = Episode.get_episode name, n_episode
+    episode = Episode.get_episode @show_name, @episode_number
     episode.translation.should be_false
     episode.editing.should     be_true
   end
 
   it 'removes an episode of a show' do
-    name      = 'Monogatari Series Second Season'
-    n_episode = 3
-
-    episode = Episode.remove name, n_episode
-    episode.should                              be_true
-    Episode.get_episode(name, n_episode).should be_nil
-    Show.get_show(name).should_not              be_nil
+    episode = Episode.remove @show_name, @episode_number
+    episode.should                                          be_true
+    Episode.get_episode(@show_name, @episode_number).should be_nil
+    Show.get_show(@show_name).should_not                    be_nil
   end
 
   it 'removes a show' do
-    name = 'Monogatari Series Second Season'
-
-    show = Show.remove name
-    show.should                be_true
-    Show.get_show(name).should be_nil
+    show = Show.remove @show_name
+    show.should                      be_true
+    Show.get_show(@show_name).should be_nil
   end
 
 end

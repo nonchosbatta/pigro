@@ -41,14 +41,18 @@ class Show
       show.update stuff
     end
 
-    def remove(name, stuff = {})
-      show = Show.first({ name: name }.merge(stuff))
+    def remove(name)
+      show = Show.first name: name
       return false unless show
       show.destroy
     end
 
-    def get_show(name, stuff = {})
-      Show.first({ name: name }.merge(stuff))
+    def get_show(name)
+      Show.first name: name
+    end
+
+    def find_shows(keyword)
+      Show.all :name.like => "%#{keyword}%"
     end
   end
 end
