@@ -5,6 +5,7 @@ Perché stanco mi ha stancato.
 Preamble
 ========
 Pigro is a webapp allowing you to publish the status of each episode of the series you're fansubbing.
+It also provides a complete administration panel and public APIs.
 
 Ethimology
 =============
