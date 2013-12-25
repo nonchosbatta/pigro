@@ -1,0 +1,54 @@
+@import url(https://fonts.googleapis.com/css?family=Lato);
+
+body {
+  padding-top: 70px;
+}
+
+.container h1 {
+  font-family   : "Lato", sans-serif;
+  font-size     : 36px;
+  font-weight   : normal;
+  letter-spacing: -0.02em;
+}
+
+form {
+  max-width: 330px;
+  padding  : 15px;
+  margin   : 0 auto;
+}
+
+form h2, .form .checkbox {
+  margin-bottom: 10px;
+}
+
+form .checkbox {
+  font-weight: normal;
+}
+
+form .form-control {
+  position  : relative;
+  font-size : 16px;
+  height    : auto;
+  padding   : 10px;
+  box-sizing: border-box;
+}
+
+form .form-control:focus {
+  z-index: 2;
+}
+
+form .form-control[type="text"] {
+  margin-bottom             : -1px;
+  border-bottom-left-radius : 0;
+  border-bottom-right-radius: 0;
+}
+
+form .form-control[type="password"] {
+  margin-bottom          : 10px;
+  border-top-left-radius : 0;
+  border-top-right-radius: 0;
+}
+
+.checkbox {
+  margin: -25px;
+}

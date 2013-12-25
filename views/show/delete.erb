@@ -2,11 +2,12 @@
 <%= erb :'template/header' %>
 
 <% if defined? @error %>
-  <p class="error"><%= @error %></p>
+  <div class="alert alert-danger"><%= @error %></div>
 <% elsif defined? @success %>
-  <p class="success"><%= @success %></p>
+  <div class="alert alert-success"><%= @success %></div>
 <% else %>
-  <form action="<%= @current_url %>" method="post">
+  <form action="<%= @current_url %>" method="post" role="form">
+    <h2><%= @title %></h2>
 
     <select name="name">
       <% @shows.each { |show| %>
@@ -15,7 +16,7 @@
     </select><br>
     
     <%= csrf_tag %>
-    <input type="submit" name="go" value="Delete">
+    <button class="btn btn-lg btn-primary btn-block" type="submit" name="go">Delete</button>
   </form>
 <% end %>
 

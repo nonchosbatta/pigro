@@ -1,18 +1,4 @@
 <%= erb :'template/header' %>
-  -- User --<br>
-  <a href="user/signup">Signup</a><br>
-  <a href="user/login">Login</a><br>
-  <a href="user/logout">Logout</a><br>
-  <a href="user/lost_password">Lost password</a><br>
-  <a href="user/change_level">Change user level</a><br><br>
-
-  -- Show --<br>
-  <a href="show/add">Add</a><br>
-  <a href="show/edit">Edit</a><br>
-  <a href="show/delete">Delete</a><br><br>
-
-  -- Episodes --<br>
-  <a href="episode/add">Add</a><br>
-  <a href="episode/edit">Edit</a><br>
-  <a href="episode/delete">Delete</a>
+  <h1>Pigro administration panel</h1>
+  <p>Welcome back, <%= logged_in? ? current_user.username : 'guest' %> ´_ゝ｀</p>
 <%= erb :'template/footer' %>

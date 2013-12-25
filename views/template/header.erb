@@ -1,8 +1,80 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="robots" content="index, follow">
+    <meta charset="utf-8">
+    <meta name="robots"   content="index, follow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= defined?(@title) ? "#{@title} | Pigro" : 'Pigro' %></title>
+
+    <link href="/bootstrap/css/bootstrap.min.css"  rel="stylesheet">
+    <link href="/css/lib/bootstrap-select.min.css" rel="stylesheet">
+    <link href="/css/lib/bootstrap-checkbox.css"   rel="stylesheet">
+    <link href="/css/user.css"                     rel="stylesheet">
+    <meta http-equiv="X-UA-Compatible"             content="IE=edge">
   </head>
-<body>
+
+  <body>
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">Pigro</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+
+            <li class="active"><a href="#">Home</a></li>
+
+            <% if staffer? %>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Show <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="/show/add">Add</a></li>
+                  <li><a href="/show/edit">Edit</a></li>
+                  <li><a href="/show/delete">Delete</a></li>
+                </ul>
+              </li>
+
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Episode <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="/episode/add">Add</a></li>
+                  <li><a href="/episode/edit">Edit</a></li>
+                  <li><a href="/episode/delete">Delete</a></li>
+                </ul>
+              </li>
+            <% end %>
+
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">User <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <% unless logged_in? %>
+                  <li><a href="/user/signup">Signup</a></li>
+                  <li><a href="/user/login">Login</a></li>
+                  <li><a href="/user/lost_password">Lost password</a></li>
+                <% else %>
+                  <li><a href="/user/logout">Logout</a></li>
+                  <% if staffer? %>
+                    <li class="divider"></li>
+                    <li><a href="/user/change_level">Change user level</a></li>
+                  <% end %>
+                <% end %>
+              </ul>
+            </li>
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="jumbotron">

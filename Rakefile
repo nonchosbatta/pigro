@@ -11,6 +11,6 @@ task :test do
   File.delete 'db/spec.db' if File.exists? 'db/spec.db'
 end
 
-task :run do
-  sh 'thin -R config.ru -p 4567 start'
+task :run, :port do |t, args|
+  sh "thin -R config.ru -p #{args[:port] || 4567} start"
 end

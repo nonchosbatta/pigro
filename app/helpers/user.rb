@@ -8,7 +8,7 @@
 #  0. You just DO WHAT THE FUCK YOU WANT TO.
 #++
 
-class Pigro
+class ${ClassName}
   helpers do
     def current_user
       guest = Guest.new
@@ -20,6 +20,11 @@ class Pigro
       current_user.is_a? User
     end
       alias_method :logged?, :logged_in?
+
+    def staffer?
+      return false unless logged_in?
+      current_user.staff?
+    end
 
     def set_login(session)
       set_cookie 'sessid', session

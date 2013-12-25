@@ -2,11 +2,12 @@
 <%= erb :'template/header' %>
 
 <% if defined? @error %>
-  <p class="error"><%= @error %></p>
+  <div class="alert alert-danger"><%= @error %></div>
 <% elsif defined? @success %>
-  <p class="success"><%= @success %></p>
+  <div class="alert alert-success"><%= @success %></div>
 <% elsif defined? @shows %>
-  <form action="<%= @current_url %>" method="post">
+  <form action="<%= @current_url %>" method="post" role="form">
+    <h2><%= @title %></h2>
 
     <select name="name">
       <% @shows.each { |show| %>
@@ -15,20 +16,22 @@
     </select><br>
 
     <%= csrf_tag %>
-    <input type="submit" name="go" value="Edit">
+    <button class="btn btn-lg btn-primary btn-block" type="submit" name="go">Edit</button>
   </form>
 <% elsif defined? @show %>
-  <form action="<%= @current_url %>" method="post">
-    <input type="text"   placeholder="<%= @show.name %>"  readonly><br>
-    <input type="number" placeholder="number of episodes" name="tot_episodes" value="<%= @show.tot_episodes %>"><br>
-    <input type="text"   placeholder="airing"             name="airing"       value="<%= @show.airing       %>"><br>
-    <input type="text"   placeholder="translator"         name="translator"   value="<%= @show.translator   %>"><br>
-    <input type="text"   placeholder="editor"             name="editor"       value="<%= @show.editor       %>"><br>
-    <input type="text"   placeholder="typesetter"         name="typesetter"   value="<%= @show.typesetter   %>"><br>
-    <input type="text"   placeholder="encoder"            name="encoder"      value="<%= @show.encoder      %>"><br>
-    <input type="text"   placeholder="checker"            name="checker"      value="<%= @show.checker      %>"><br>
-    <input type="text"   placeholder="timer"              name="timer"        value="<%= @show.timer        %>"><br>
-    <input type="text"   placeholder="qchecker"           name="qchecker"     value="<%= @show.qchecker     %>"><br>
+  <form action="<%= @current_url %>" method="post" role="form">
+    <h2><%= @title %></h2>
+    
+    <input type="text"   placeholder="<%= @show.name %>"                                                        class="form-control" readonly ><br>
+    <input type="number" placeholder="number of episodes" name="tot_episodes" value="<%= @show.tot_episodes %>" class="form-control" autofocus><br>
+    <input type="text"   placeholder="airing"             name="airing"       value="<%= @show.airing       %>" class="form-control"          ><br>
+    <input type="text"   placeholder="translator"         name="translator"   value="<%= @show.translator   %>" class="form-control"          ><br>
+    <input type="text"   placeholder="editor"             name="editor"       value="<%= @show.editor       %>" class="form-control"          ><br>
+    <input type="text"   placeholder="typesetter"         name="typesetter"   value="<%= @show.typesetter   %>" class="form-control"          ><br>
+    <input type="text"   placeholder="encoder"            name="encoder"      value="<%= @show.encoder      %>" class="form-control"          ><br>
+    <input type="text"   placeholder="checker"            name="checker"      value="<%= @show.checker      %>" class="form-control"          ><br>
+    <input type="text"   placeholder="timer"              name="timer"        value="<%= @show.timer        %>" class="form-control"          ><br>
+    <input type="text"   placeholder="qchecker"           name="qchecker"     value="<%= @show.qchecker     %>" class="form-control"          ><br>
     
     <select name="status" id="status">
       <option>-- Status --</option>
@@ -39,7 +42,7 @@
 
     <%= csrf_tag %>
     <input type="hidden" name="name" value="<%= @show.name %>">
-    <input type="submit" name="edit" value="Edit">
+    <button class="btn btn-lg btn-primary btn-block" type="submit" name="edit">Edit</button>
   </form>
 <% end %>
 

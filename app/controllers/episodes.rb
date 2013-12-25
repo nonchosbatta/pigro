@@ -15,7 +15,7 @@ class Pigro
     elsif not current_user.staff?
       @error = 'Go home, this is not a place for you.'
     else
-      @shows = Show.all status: :ongoing
+      @shows = Show.all
     end
     erb :'episode/add'
   end

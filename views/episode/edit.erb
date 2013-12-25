@@ -2,11 +2,12 @@
 <%= erb :'template/header' %>
 
 <% if defined? @error %>
-  <p class="error"><%= @error %></p>
+  <div class="alert alert-danger"><%= @error %></div>
 <% elsif defined? @success %>
-  <p class="success"><%= @success %></p>
+  <div class="alert alert-success"><%= @success %></div>
 <% elsif defined? @show %>
-  <form action="<%= @current_url %>" method="post">
+  <form action="<%= @current_url %>" method="post" role="form">
+    <h2><%= @title %></h2>
   
     <select name="name">
       <% @show.each { |show| %>
@@ -14,25 +15,30 @@
       <% } %>
     </select><br>
 
-    <input type="number" name="episode" placeholder="episode"><br>
+    <input type="number" name="episode" placeholder="episode" class="form-control" required autofocus><br>
+
     <%= csrf_tag %>
-    <input type="submit" name="go" value="Edit">
+    <button class="btn btn-lg btn-primary btn-block" type="submit" name="go">Edit</button>
   </form>
 <% elsif defined? @episode %>
-  <form action="<%= @current_url %>" method="post">
-    <input type="text"     placeholder="<%= @name            %>" readonly><br>
-    <input type="number"   placeholder="<%= @episode.episode %>" readonly><br>
-    <input type="checkbox" name="translation" id="translation" <%= 'checked' if @episode.translation %>><label for="translation">Translation </label><br>
-    <input type="checkbox" name="editing"     id="editing"     <%= 'checked' if @episode.editing     %>><label for="editing"    >Editing     </label><br>
-    <input type="checkbox" name="typesetting" id="typesetting" <%= 'checked' if @episode.typesetting %>><label for="typesetting">Typesetting </label><br>
-    <input type="checkbox" name="encoding"    id="encoding"    <%= 'checked' if @episode.encoding    %>><label for="encoding"   >Encoding    </label><br>
-    <input type="checkbox" name="checking"    id="checking"    <%= 'checked' if @episode.checking    %>><label for="checking"   >Checking    </label><br>
-    <input type="checkbox" name="timing"      id="timing"      <%= 'checked' if @episode.timing      %>><label for="timing"     >Timing      </label><br>
-    <input type="checkbox" name="checking"    id="qchecking"   <%= 'checked' if @episode.qchecking   %>><label for="qchecking"  >QC          </label><br>
+  <form action="<%= @current_url %>" method="post" role="form">
+    <h2><%= @title %></h2>
+
+    <input type="text"     placeholder="<%= @name            %>"  class="form-control" required autofocus readonly><br>
+    <input type="number"   placeholder="<%= @episode.episode %>"  class="form-control"                    readonly><br>
+
+    <input type="checkbox" name="translation" data-label="Translation" <%= 'checked' if @episode.translation %>><br>
+    <input type="checkbox" name="editing"     data-label="Editing"     <%= 'checked' if @episode.editing     %>><br>
+    <input type="checkbox" name="typesetting" data-label="Typesetting" <%= 'checked' if @episode.typesetting %>><br>
+    <input type="checkbox" name="encoding"    data-label="Encoding"    <%= 'checked' if @episode.encoding    %>><br>
+    <input type="checkbox" name="checking"    data-label="Checking"    <%= 'checked' if @episode.checking    %>><br>
+    <input type="checkbox" name="timing"      data-label="Timing"      <%= 'checked' if @episode.timing      %>><br>
+    <input type="checkbox" name="checking"    data-label="QC"          <%= 'checked' if @episode.qchecking   %>><br>
+    
     <%= csrf_tag %>
     <input type="hidden" name="name"    value="<%= @name %>">
     <input type="hidden" name="episode" value="<%= @episode.episode %>">
-    <input type="submit" name="edit"    value="Edit">
+    <button class="btn btn-lg btn-primary btn-block" type="submit" name="edit">Edit</button>
   </form>
 <% end %>
 
