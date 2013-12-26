@@ -12,14 +12,14 @@ class Episode
   include DataMapper::Resource
 
   property :id,          Serial
-  property :episode,     Integer, unique: true, required: true
+  property :episode,     Integer, unique: true, required: true, key: true
 
   property :translation, Boolean, default: false
   property :editing,     Boolean, default: false
-  property :typesetting, Boolean, default: false
-  property :encoding,    Boolean, default: false
   property :checking,    Boolean, default: false
   property :timing,      Boolean, default: false
+  property :typesetting, Boolean, default: false
+  property :encoding,    Boolean, default: false
   property :qchecking,   Boolean, default: false
 
   property :created_at,  DateTime

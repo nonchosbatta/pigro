@@ -21,10 +21,17 @@ class Pigro
     end
       alias_method :logged?, :logged_in?
 
-    def staffer?
+    def high_staff?
       return false unless logged_in?
-      current_user.staff?
+      current_user.high_staffer?
     end
+      alias_method :high_staffer?, :high_staff?
+
+    def staff?
+      return false unless logged_in?
+      current_user.staffer?
+    end
+      alias_method :staffer?, :staff?
 
     def set_login(session)
       set_cookie 'sessid', session

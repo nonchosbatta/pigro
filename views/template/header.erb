@@ -63,7 +63,7 @@
                   <li><a href="/user/lost_password">Lost password</a></li>
                 <% else %>
                   <li><a href="/user/logout">Logout</a></li>
-                  <% if staffer? %>
+                  <% if high_staffer? %>
                     <li class="divider"></li>
                     <li><a href="/user/change_level">Change user level</a></li>
                   <% end %>

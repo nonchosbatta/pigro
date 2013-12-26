@@ -118,7 +118,7 @@ class Pigro
   post '/user/change_level/?' do
     if not logged_in?
       @error = 'You need to log in.'
-    elsif not current_user.staff?
+    elsif not current_user.high_staff?
       @error = 'Go home, this is not a place for you.'
     elsif fields? :username, :go
       @user   = User.get params[:username]
@@ -126,8 +126,7 @@ class Pigro
     elsif not fields? :username, :level
       @error = 'To change a user level, you need to send his username and level.'
     else
-      user = User.get params[:username]
-
+      user  = User.get params[:username]
       level = case params[:level]
         when 'banned'  then User.banned
         when 'founder' then User.founder

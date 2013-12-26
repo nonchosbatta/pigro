@@ -53,10 +53,10 @@ class Pigro
         :airing       => params[:airing      ],
         :translator   => params[:translator  ],
         :editor       => params[:editor      ],
-        :typesetter   => params[:typesetter  ],
-        :encoder      => params[:encoder     ],
         :checker      => params[:checker     ],
         :timer        => params[:timer       ],
+        :typesetter   => params[:typesetter  ],
+        :encoder      => params[:encoder     ],
         :qchecker     => params[:qchecker    ]
       }
 
@@ -88,13 +88,12 @@ class Pigro
       data = {
         :tot_episodes => params[:tot_episodes] ? params[:tot_episodes].to_i : 13,
         :airing       => params[:airing      ],
-        :status       => params[:status      ] ? params[:status].to_sym     : :ongoing,
         :translator   => params[:translator  ],
         :editor       => params[:editor      ],
-        :typesetter   => params[:typesetter  ],
-        :encoder      => params[:encoder     ],
         :checker      => params[:checker     ],
         :timer        => params[:timer       ],
+        :typesetter   => params[:typesetter  ],
+        :encoder      => params[:encoder     ],
         :qchecker     => params[:qchecker    ]
       }
 

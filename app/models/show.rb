@@ -12,7 +12,7 @@ class Show
   include DataMapper::Resource
 
   property :id,           Serial
-  property :name,         String,  unique: true, required: true
+  property :name,         String,  unique: true, required: true, key: true
   property :tot_episodes, String,  default: 13
   property :status,       Enum[ :ongoing, :finished, :dropped ], default: :ongoing
   property :airing,       String
@@ -20,10 +20,10 @@ class Show
 
   property :translator,   String
   property :editor,       String
-  property :typesetter,   String
-  property :encoder,      String
   property :checker,      String
   property :timer,        String
+  property :typesetter,   String
+  property :encoder,      String
   property :qchecker,     String
 
   property :created_at,   DateTime

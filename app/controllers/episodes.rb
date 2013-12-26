@@ -60,10 +60,10 @@ class Pigro
       data = {
         :translation => params[:translation] == 'on',
         :editing     => params[:editing    ] == 'on',
-        :typesetting => params[:typesetting] == 'on',
-        :encoding    => params[:encoding   ] == 'on',
         :checking    => params[:checking   ] == 'on',
         :timing      => params[:timing     ] == 'on',
+        :typesetting => params[:typesetting] == 'on',
+        :encoding    => params[:encoding   ] == 'on',
         :qchecking   => params[:qchecking  ] == 'on'
       }
 
@@ -108,10 +108,10 @@ class Pigro
       data = {
         :translation => params[:translation] == 'on',
         :editing     => params[:editing    ] == 'on',
-        :typesetting => params[:typesetting] == 'on',
-        :encoding    => params[:encoding   ] == 'on',
         :checking    => params[:checking   ] == 'on',
         :timing      => params[:timing     ] == 'on',
+        :typesetting => params[:typesetting] == 'on',
+        :encoding    => params[:encoding   ] == 'on',
         :qchecking   => params[:qchecking  ] == 'on'
       }
 

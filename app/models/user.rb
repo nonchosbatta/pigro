@@ -12,11 +12,8 @@ class User
   include DataMapper::Resource
 
   property :id,       Serial
-  property :username, String, unique: true,
-                              length: 4..16,
-                              format: /^[\w_\s\-\*]*$/
-  property :email,    String, unique: true,
-                              format: :email_address
+  property :username, String, unique: true,  length: 4..16, format: /^[\w_\s\-\*]*$/, key: true
+  property :email,    String, unique: true,                 format: :email_address
 
   property :permission_level, Integer, default: 4
 
@@ -63,9 +60,15 @@ class User
     false
   end
 
+  def high_staff?
+    founder? || admin?
+  end
+    alias_method :high_staffer?, :high_staff?
+
   def staff?
     founder? || admin? || smod? || mod?
   end
+    alias_method :staffer?, :staff?
 
   def logged?(session)
     self.session == session

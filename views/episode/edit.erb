@@ -41,10 +41,10 @@
 
     <input type="checkbox" name="translation" data-label="Translation" <%= 'checked' if @episode.translation %>><br>
     <input type="checkbox" name="editing"     data-label="Editing"     <%= 'checked' if @episode.editing     %>><br>
-    <input type="checkbox" name="typesetting" data-label="Typesetting" <%= 'checked' if @episode.typesetting %>><br>
-    <input type="checkbox" name="encoding"    data-label="Encoding"    <%= 'checked' if @episode.encoding    %>><br>
     <input type="checkbox" name="checking"    data-label="Checking"    <%= 'checked' if @episode.checking    %>><br>
     <input type="checkbox" name="timing"      data-label="Timing"      <%= 'checked' if @episode.timing      %>><br>
+    <input type="checkbox" name="typesetting" data-label="Typesetting" <%= 'checked' if @episode.typesetting %>><br>
+    <input type="checkbox" name="encoding"    data-label="Encoding"    <%= 'checked' if @episode.encoding    %>><br>
     <input type="checkbox" name="checking"    data-label="QC"          <%= 'checked' if @episode.qchecking   %>><br>
     
     <%= csrf_tag %>
