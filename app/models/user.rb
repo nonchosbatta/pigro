@@ -14,7 +14,7 @@ class User
   property :id,       Serial
   property :username, String, unique: true,
                               length: 4..16,
-                              format: /^[a-zA-Z0-9_\-\*^]*$/
+                              format: /^[\w_\s\-\*]*$/
   property :email,    String, unique: true,
                               format: :email_address
 
