@@ -19,7 +19,7 @@ describe 'Pigro' do
     @tot_episodes = 23
     @show_data    = {
       :tot_episodes => @tot_episodes,
-      :airing       => '2013-12-21 15:30:00+00:00',
+      :airing       => 'tuesday at 19:00',
       :translator   => 'Gustavo',
       :editor       => 'Patrizio',
       :typesetter   => 'Clodovico',

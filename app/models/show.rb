@@ -16,6 +16,7 @@ class Show
   property :tot_episodes, String,  default: 13
   property :status,       Enum[ :ongoing, :finished, :dropped ], default: :ongoing
   property :airing,       String
+  property :airing_t,     Time
 
   property :translator,   String
   property :editor,       String
@@ -29,6 +30,13 @@ class Show
   property :updated_at,   DateTime
 
   has n, :episodes, constraint: :destroy
+
+  before :save,   :parse_time
+  before :update, :parse_time
+
+  def airing_t
+    Chronic.parse self.airing
+  end
 
   class << self
     def add(name, stuff = {})
