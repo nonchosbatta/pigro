@@ -126,7 +126,9 @@ class Pigro
     elsif not fields? :username, :level
       @error = 'To change a user level, you need to send his username and level.'
     else
-      level = case # I guess using #send could be dangerous
+      user = User.get params[:username]
+
+      level = case params[:level]
         when 'banned'  then User.banned
         when 'founder' then User.founder
         when 'admin'   then User.admin
@@ -135,8 +137,13 @@ class Pigro
         when 'user'    then User.user
         else                nil
       end
+
       if level.nil?
         @error = 'User level not recognized.'
+      elsif not user
+        @error = 'User not recognized.'
+      elsif level == User.founder || user.founder?
+        @error = 'Foundership is untouchable.'
       else
         user = User.change_level params[:username], level
         if user
