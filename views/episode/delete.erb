@@ -5,19 +5,31 @@
   <div class="alert alert-danger"><%= @error %></div>
 <% elsif defined? @success %>
   <div class="alert alert-success"><%= @success %></div>
-<% elsif defined? @show %>
+<% elsif defined? @shows %>
   <form action="<%= @current_url %>" method="post" role="form">
     <h2><%= @title %></h2>
 
     <select name="name">
-      <% @show.each { |show| %>
+      <% @shows.each { |show| %>
         <option value="<%= show.name %>"><%= show.name %></option>
       <% } %>
     </select><br>
-    
-    <input type="number" name="episode" placeholder="episode" class="form-control" required autofocus><br>
 
     <%= csrf_tag %>
+    <button class="btn btn-lg btn-primary btn-block" type="submit" name="go">Delete</button>
+  </form>
+<% elsif defined? @episodes %>
+  <form action="<%= @current_url %>" method="post" role="form">
+    <h2><%= @title %></h2>
+  
+    <select name="episode">
+      <% @episodes.each { |episode| %>
+        <option value="<%= episode.episode %>"><%= episode.episode %></option>
+      <% } %>
+    </select><br>
+
+    <%= csrf_tag %>
+    <input  type="hidden" name="name" value="<%= @name %>">
     <button class="btn btn-lg btn-primary btn-block" type="submit" name="delete">Delete</button>
   </form>
 <% end %>

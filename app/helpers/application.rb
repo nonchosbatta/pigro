@@ -17,8 +17,8 @@ class Pigro
       true
     end
 
-    def export(collection, options = {})
-      format  = options.include?(:as)      ? options[:as].to_sym : :json
+    def export(collection, format = {}, options = {})
+      format  = format.include?(:as)       ? format[:as].to_sym  : :json
       only    = options.include?(:only)    ? options[:only]      : []
       exclude = options.include?(:exclude) ? options[:exclude]   : []
       methods = options.include?(:methods) ? options[:methods]   : []

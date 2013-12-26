@@ -46,7 +46,7 @@ class Pigro
     elsif not current_user.staff?
       @error = 'Go home, this is not a place for you.'
     elsif not fields? :name
-      @error = 'To add a show, you need almost to send its name.'
+      @error = 'To add a show, you need at least to send its name.'
     else
       data   = {
         :tot_episodes => params[:tot_episodes] ? params[:tot_episodes].to_i : 13,
@@ -76,7 +76,7 @@ class Pigro
     elsif not current_user.staff?
       @error = 'Go home, this is not a place for you.'
     elsif not fields? :name
-      @error = 'To edit a show, you need almost to send its name.'
+      @error = 'To edit a show, you need to send its name.'
     elsif fields? :go
       show   = Show.get_show params[:name]
       if show

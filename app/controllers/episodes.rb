@@ -26,7 +26,7 @@ class Pigro
     elsif not current_user.staff?
       @error = 'Go home, this is not a place for you.'
     else
-      @show  = Show.all
+      @shows  = Show.all
     end
     erb :'episode/edit'
   end
@@ -37,7 +37,7 @@ class Pigro
     elsif not current_user.staff?
       @error = 'Go home, this is not a place for you.'
     else
-      @show  = Show.all
+      @shows  = Show.all
     end
     erb :'episode/delete'
   end
@@ -55,7 +55,7 @@ class Pigro
         @error = 'Show not found.'
       end
     elsif not fields? :name, :episode
-      @error = 'To add an episode, you need almost to send its name and what episode it is.'
+      @error = 'To add an episode, you need at least to send its name and what episode it is.'
     else
       data = {
         :translation => params[:translation] == 'on',
@@ -84,15 +84,25 @@ class Pigro
       @error = 'You need to log in.'
     elsif not current_user.staff?
       @error = 'Go home, this is not a place for you.'
-    elsif not fields? :name, :episode
-      @error = 'To edit an episode, you need almost to send its name and what episode it is.'
+    elsif not fields? :name
+      @error = 'To edit an episode, you need at least to send its name.'
     elsif fields? :go
-      episode = Episode.get_episode params[:name], params[:episode].to_i
+      episodes = Episode.get_episodes params[:name]
+      if episodes
+        @episodes = episodes
+        @name     = params[:name]
+      else
+        @error    = 'Episode not found.'
+      end
+    elsif not fields? :episode
+      @error  = 'To edit an episode, you need at least to send its name and what episode it is.'
+    elsif fields? :gogo
+      episode  = Episode.get_episode params[:name], params[:episode].to_i
       if episode
         @episode = episode
         @name    = params[:name]
       else
-        @error   = 'Episode not found.'
+        @error   = 'Show not found.'
       end
     else
       data = {
@@ -120,8 +130,18 @@ class Pigro
       @error = 'You need to log in.'
     elsif not current_user.staff?
       @error = 'Go home, this is not a place for you.'
-    elsif not fields? :name, :episode
-      @error = 'To delete an episode, you need almost to send its name and what episode it is.'
+    elsif not fields? :name
+      @error = 'To delete an episode, you need to send its name.'
+    elsif fields? :go
+      episodes = Episode.get_episodes params[:name]
+      if episodes
+        @episodes = episodes
+        @name     = params[:name]
+      else
+        @error    = 'Episode not found.'
+      end
+    elsif not fields? :episode
+      @error  = 'To edit an episode, you need at least to send its name and what episode it is.'
     else
       episode = Episode.remove params[:name], params[:episode].to_i
       if episode
@@ -130,6 +150,6 @@ class Pigro
         @error   = 'Error deleting the episode.'
       end
     end
-    erb :'episode/edit'
+    erb :'episode/delete'
   end
 end

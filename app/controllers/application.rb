@@ -10,9 +10,9 @@
 
 class Pigro
   before do
-    @language     = request.env['HTTP_ACCEPT_LANGUAGE']
-    @current_url  = "http://#{request.env['HTTP_HOST']}#{request.env['REQUEST_URI']}"
-    @domain       = "http://#{request.env['HTTP_HOST']}"
+    @language    = request.env['HTTP_ACCEPT_LANGUAGE']
+    @current_url = "http://#{request.env['HTTP_HOST']}#{request.env['REQUEST_URI']}"
+    @domain      = "http://#{request.env['HTTP_HOST']}"
   end
 
   get '/' do
