@@ -9,7 +9,7 @@
 #++
 
 class Pigro
-  # get the titles of all shows
+  # get the titles of all the shows
   get '/api/shows/all.:format' do |format|
     result = Show.all
     export result, as: format, only: :name

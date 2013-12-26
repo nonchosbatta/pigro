@@ -62,7 +62,7 @@ class Pigro
 
       show = Show.add params[:name], data
       if show.errors.any?
-        @error   = show.errors.first
+        @error   = show.errors.first.first
       else
         @success = 'The show has been added.'
       end

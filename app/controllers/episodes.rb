@@ -26,7 +26,7 @@ class Pigro
     elsif not current_user.staff?
       @error = 'Go home, this is not a place for you.'
     else
-      @shows  = Show.all
+      @shows = Show.all
     end
     erb :'episode/edit'
   end
@@ -37,7 +37,7 @@ class Pigro
     elsif not current_user.staff?
       @error = 'Go home, this is not a place for you.'
     else
-      @shows  = Show.all
+      @shows = Show.all
     end
     erb :'episode/delete'
   end
@@ -71,7 +71,7 @@ class Pigro
       if not episode
         @error   = 'Show not found'
       elsif episode.errors.any?
-        @error   = episode.errors.first
+        @error   = episode.errors.first.first
       else
         @success = 'The episode has been added.'
       end

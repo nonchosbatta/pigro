@@ -59,8 +59,16 @@ class Episode
 
     def get_episodes(name, stuff = {})
       Episode.all({
-        :show    => { name: name }
+        :show => { name: name }
       }.merge(stuff))
+    end
+
+    def last_episode(name, stuff = {})
+      episode = Episode.last({
+        :show => { name: name }
+      }.merge(stuff))
+      
+      episode ? episode.episode : 0
     end
   end
 end

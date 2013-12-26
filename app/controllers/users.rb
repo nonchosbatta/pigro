@@ -79,7 +79,7 @@ class Pigro
       level = User.empty? ? User.founder : User.user
       user  = User.signup params[:username], params[:email], params[:password], level
       if user.errors.any?
-        @error   = user.errors.first
+        @error   = user.errors.first.first
       else
         @success = 'Sign up successful.'
       end

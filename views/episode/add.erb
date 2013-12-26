@@ -22,8 +22,8 @@
   <form action="<%= @current_url %>" method="post" role="form">
     <h2><%= @title %></h2>
     
-    <input type="text"     placeholder="<%= @show.name %>"                class="form-control" required autofocus readonly><br>
-    <input type="number"   placeholder="episode"           name="episode" class="form-control" required                   ><br>
+    <input type="text"     placeholder="<%= @show.name %>"                class="form-control" required autofocus readonly                                                             ><br>
+    <input type="number"   placeholder="episode"           name="episode" class="form-control" required                    value="<%= Episode.last_episode(@show.name) + 1 %>"><br>
 
     <input type="checkbox" name="translation" data-label="Translation"><br>
     <input type="checkbox" name="editing"     data-label="Editing"    ><br>
