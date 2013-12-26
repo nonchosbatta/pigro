@@ -13,6 +13,7 @@ require 'bcrypt'
 require 'data_mapper'
 require 'dm-sqlite-adapter'
 require 'rack/csrf'
+require 'chronic'
 
 class Pigro < Sinatra::Base
   db_path = File.join Dir.pwd, '../', 'db'

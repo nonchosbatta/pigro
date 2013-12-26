@@ -34,7 +34,7 @@ class Show
   before :save,   :parse_time
   before :update, :parse_time
 
-  def airing_t
+  def parse_time
     Chronic.parse self.airing
   end
 
