@@ -31,10 +31,7 @@ class Show
 
   has n, :episodes, constraint: :destroy
 
-  before :save,   :parse_time
-  before :update, :parse_time
-
-  def parse_time
+  def airing_t
     Chronic.parse self.airing
   end
 
@@ -62,5 +59,6 @@ class Show
     def find_shows(keyword)
       Show.all :name.like => "%#{keyword}%"
     end
+    
   end
 end

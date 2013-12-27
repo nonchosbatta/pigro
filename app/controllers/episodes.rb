@@ -69,7 +69,7 @@ class Pigro
 
       episode = Episode.add params[:name], params[:episode].to_i, data
       if not episode
-        @error   = 'Show not found'
+        @error   = 'Error adding the episode.'
       elsif episode.errors.any?
         @error   = episode.errors.first.first
       else

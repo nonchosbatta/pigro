@@ -12,7 +12,7 @@ class Episode
   include DataMapper::Resource
 
   property :id,          Serial
-  property :episode,     Integer, unique: true, required: true, key: true
+  property :episode,     Integer, required: true, key: true
 
   property :translation, Boolean, default: false
   property :editing,     Boolean, default: false
@@ -29,6 +29,7 @@ class Episode
 
   class << self
     def add(name, episode, stuff = {})
+      return false if Episode.get_episode name, episode
       show = Show.first name: name
       return false unless show
       show.episodes.create({ episode: episode }.merge(stuff))
