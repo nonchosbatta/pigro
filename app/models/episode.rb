@@ -21,6 +21,7 @@ class Episode
   property :typesetting, Boolean, default: false
   property :encoding,    Boolean, default: false
   property :qchecking,   Boolean, default: false
+  property :download,    String
 
   property :created_at,  DateTime
   property :updated_at,  DateTime

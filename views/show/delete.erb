@@ -9,7 +9,7 @@
   <form action="<%= @current_url %>" method="post" role="form">
     <h2><%= @title %></h2>
 
-    <select name="name">
+    <select name="name" class="form-control">
       <% @shows.each { |show| %>
         <option value="<%= show.name %>"><%= show.name %></option>
       <% } %>

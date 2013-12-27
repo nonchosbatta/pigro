@@ -17,10 +17,6 @@ form {
   margin   : 0 auto;
 }
 
-form h2, .form .checkbox {
-  margin-bottom: 10px;
-}
-
 form .checkbox {
   font-weight: normal;
 }
@@ -50,5 +46,7 @@ form .form-control[type="password"] {
 }
 
 .checkbox {
-  margin: -25px;
+  margin-right: -25px;
+  margin-top: -25px;
+  margin-bottom: -25px;
 }

@@ -9,7 +9,7 @@
   <form action="<%= @current_url %>" method="post" role="form">
     <h2><%= @title %></h2>
 
-    <select name="name">
+    <select name="name" class="form-control">
       <% @shows.each { |show| %>
         <option value="<%= show.name %>"><%= show.name %></option>
       <% } %>
@@ -22,16 +22,18 @@
   <form action="<%= @current_url %>" method="post" role="form">
     <h2><%= @title %></h2>
     
-    <input type="text"     placeholder="<%= @show.name %>"                class="form-control" required autofocus readonly                                                             ><br>
-    <input type="number"   placeholder="episode"           name="episode" class="form-control" required                    value="<%= Episode.last_episode(@show.name) + 1 %>"><br>
+    <input type="text"     placeholder="<%= @show.name %>" class="form-control"                                                 required autofocus readonly><br>
+    <input type="number"   placeholder="episode"           class="form-control" name="episode" value="<%= Episode.last_episode(@show.name) + 1 %>" required><br>
 
-    <input type="checkbox" name="translation" data-label="Translation"><br>
-    <input type="checkbox" name="editing"     data-label="Editing"    ><br>
-    <input type="checkbox" name="checking"    data-label="Checking"   ><br>
-    <input type="checkbox" name="timing"      data-label="Timing"     ><br>
-    <input type="checkbox" name="typesetting" data-label="Typesetting"><br>
-    <input type="checkbox" name="encoding"    data-label="Encoding"   ><br>
-    <input type="checkbox" name="qchecking"   data-label="QC"         ><br>
+    <input type="checkbox" name="translation" data-label="Translation" class="form-control"><br>
+    <input type="checkbox" name="editing"     data-label="Editing"     class="form-control"><br>
+    <input type="checkbox" name="checking"    data-label="Checking"    class="form-control"><br>
+    <input type="checkbox" name="timing"      data-label="Timing"      class="form-control"><br>
+    <input type="checkbox" name="typesetting" data-label="Typesetting" class="form-control"><br>
+    <input type="checkbox" name="encoding"    data-label="Encoding"    class="form-control"><br>
+    <input type="checkbox" name="qchecking"   data-label="QC"          class="form-control"><br>
+
+    <input type="url"      name="download"    placeholder="download"   class="form-control"><br>
 
     <%= csrf_tag %>
     <input  type="hidden" name="name" value="<%= @show.name %>">

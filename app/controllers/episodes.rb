@@ -64,7 +64,8 @@ class Pigro
         :timing      => params[:timing     ] == 'on',
         :typesetting => params[:typesetting] == 'on',
         :encoding    => params[:encoding   ] == 'on',
-        :qchecking   => params[:qchecking  ] == 'on'
+        :qchecking   => params[:qchecking  ] == 'on',
+        :download    => params[:download   ],
       }
 
       episode = Episode.add params[:name], params[:episode].to_i, data
@@ -112,7 +113,8 @@ class Pigro
         :timing      => params[:timing     ] == 'on',
         :typesetting => params[:typesetting] == 'on',
         :encoding    => params[:encoding   ] == 'on',
-        :qchecking   => params[:qchecking  ] == 'on'
+        :qchecking   => params[:qchecking  ] == 'on',
+        :download    => params[:download   ],
       }
 
       episode = Episode.edit params[:name], params[:episode].to_i, data

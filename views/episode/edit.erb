@@ -9,7 +9,7 @@
   <form action="<%= @current_url %>" method="post" role="form">
     <h2><%= @title %></h2>
   
-    <select name="name">
+    <select name="name" class="form-control">
       <% @shows.each { |show| %>
         <option value="<%= show.name %>"><%= show.name %></option>
       <% } %>
@@ -22,7 +22,7 @@
   <form action="<%= @current_url %>" method="post" role="form">
     <h2><%= @title %></h2>
   
-    <select name="episode">
+    <select name="episode" class="form-control">
       <% @episodes.each { |episode| %>
         <option value="<%= episode.episode %>"><%= episode.episode %></option>
       <% } %>
@@ -39,13 +39,15 @@
     <input type="text"     placeholder="<%= @name            %>"  class="form-control" required autofocus readonly><br>
     <input type="number"   placeholder="<%= @episode.episode %>"  class="form-control"                    readonly><br>
 
-    <input type="checkbox" name="translation" data-label="Translation" <%= 'checked' if @episode.translation %>><br>
-    <input type="checkbox" name="editing"     data-label="Editing"     <%= 'checked' if @episode.editing     %>><br>
-    <input type="checkbox" name="checking"    data-label="Checking"    <%= 'checked' if @episode.checking    %>><br>
-    <input type="checkbox" name="timing"      data-label="Timing"      <%= 'checked' if @episode.timing      %>><br>
-    <input type="checkbox" name="typesetting" data-label="Typesetting" <%= 'checked' if @episode.typesetting %>><br>
-    <input type="checkbox" name="encoding"    data-label="Encoding"    <%= 'checked' if @episode.encoding    %>><br>
-    <input type="checkbox" name="checking"    data-label="QC"          <%= 'checked' if @episode.qchecking   %>><br>
+    <input type="checkbox" name="translation" data-label="Translation" class="form-control" <%= 'checked' if @episode.translation %>><br>
+    <input type="checkbox" name="editing"     data-label="Editing"     class="form-control" <%= 'checked' if @episode.editing     %>><br>
+    <input type="checkbox" name="checking"    data-label="Checking"    class="form-control" <%= 'checked' if @episode.checking    %>><br>
+    <input type="checkbox" name="timing"      data-label="Timing"      class="form-control" <%= 'checked' if @episode.timing      %>><br>
+    <input type="checkbox" name="typesetting" data-label="Typesetting" class="form-control" <%= 'checked' if @episode.typesetting %>><br>
+    <input type="checkbox" name="encoding"    data-label="Encoding"    class="form-control" <%= 'checked' if @episode.encoding    %>><br>
+    <input type="checkbox" name="checking"    data-label="QC"          class="form-control" <%= 'checked' if @episode.qchecking   %>><br>
+    
+    <input type="url"      name="download"    placeholder="download"   value="<%= @episode.download %>" class="form-control"><br>
     
     <%= csrf_tag %>
     <input type="hidden" name="name"    value="<%= @name %>">
