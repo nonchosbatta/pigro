@@ -17,17 +17,19 @@ class Pigro
       true
     end
 
-    def export(collection, format = {}, options = {})
-      format  = format.include?(:as)       ? format[:as].to_sym  : :json
+    def export(collection, callback = nil, options = {})
       only    = options.include?(:only)    ? options[:only]      : []
       exclude = options.include?(:exclude) ? options[:exclude]   : []
       methods = options.include?(:methods) ? options[:methods]   : []
 
-      case format
-        when :xml  then collection.to_xml  only: only, exclude: exclude, methods: methods
-        when :csv  then collection.to_csv  only: only, exclude: exclude, methods: methods
-        when :yaml then collection.to_yaml only: only, exclude: exclude, methods: methods
-        else            collection.to_json only: only, exclude: exclude, methods: methods
+      res = collection.to_json only: only, exclude: exclude, methods: methods
+
+      if callback
+        content_type :js
+        "#{callback}(#{res})"
+      else
+        content_type :json
+        res
       end
     end
   end

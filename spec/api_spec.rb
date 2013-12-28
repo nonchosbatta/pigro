@@ -65,8 +65,8 @@ describe 'Pigro' do
     episode.should_not    be_nil
   end
 
-  it 'calls shows/all.json' do
-    get '/api/shows/all.json'
+  it 'calls shows/all' do
+    get '/api/shows/all'
     last_response.should be_ok
 
     json = JSON.parse last_response.body
@@ -75,8 +75,8 @@ describe 'Pigro' do
     json.first['name'].should eql(@show_name)
   end
 
-  it 'calls shows/search/:keyword.json' do
-    get "/api/shows/search/#{URI.escape @show_name[0..6]}.json"
+  it 'calls shows/search/:keyword' do
+    get "/api/shows/search/#{URI.escape @show_name[0..6]}"
     last_response.should be_ok
 
     json = JSON.parse last_response.body
@@ -85,8 +85,8 @@ describe 'Pigro' do
     json.first['name'].should eql(@show_name)
   end
 
-  it 'calls shows/get/:show.json' do
-    get "/api/shows/get/#{URI.escape @show_name}.json"
+  it 'calls shows/get/:show' do
+    get "/api/shows/get/#{URI.escape @show_name}"
     last_response.should be_ok
 
     json = JSON.parse last_response.body
@@ -95,8 +95,8 @@ describe 'Pigro' do
     json['tot_episodes'].to_i.should eql(@tot_episodes)
   end
 
-  it 'calls shows/get/:show/episodes/list.json' do
-    get "/api/shows/get/#{URI.escape @show_name}/episodes/list.json"
+  it 'calls shows/get/:show/episodes/list' do
+    get "/api/shows/get/#{URI.escape @show_name}/episodes/list"
     last_response.should be_ok
 
     json = JSON.parse last_response.body
@@ -105,8 +105,8 @@ describe 'Pigro' do
     json.first['episode'].to_i.should eql(@episode_number)
   end
 
-  it 'calls shows/get/:show/episodes/get/:episode.json' do
-    get "/api/shows/get/#{URI.escape @show_name}/episodes/get/#{@episode_number}.json"
+  it 'calls shows/get/:show/episodes/get/:episode' do
+    get "/api/shows/get/#{URI.escape @show_name}/episodes/get/#{@episode_number}"
     last_response.should be_ok
 
     json = JSON.parse last_response.body
