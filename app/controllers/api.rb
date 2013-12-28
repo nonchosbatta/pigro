@@ -9,28 +9,32 @@
 #++
 
 class Pigro
-  get '/api/shows/all.:format' do |format|
+  before /\/api\// do
+    @callback = params.delete 'callback'
+  end
+
+  get '/api/shows/all' do
     result = Show.all
-    export result, as: format, only: :name
+    export result, @callback, only: :name
   end
 
-  get '/api/shows/search/:keyword.:format' do |keyword, format|
+  get '/api/shows/search/:keyword' do |keyword|
     result = Show.find_shows keyword
-    export result, as: format, only: :name
+    export result, @callback, only: :name
   end
 
-  get '/api/shows/get/:show.:format' do |show, format|
+  get '/api/shows/get/:show' do |show|
     result = Show.get_show show
-    export result, as: format
+    export result, @callback
   end
 
-  get '/api/shows/get/:show/episodes/list.:format' do |show, format|
+  get '/api/shows/get/:show/episodes/list' do |show|
     result = Episode.get_episodes show
-    export result, as: format, only: :episode
+    export result, @callback, only: :episode
   end
 
-  get '/api/shows/get/:show/episodes/get/:episode.:format' do |show, episode, format|
+  get '/api/shows/get/:show/episodes/get/:episode' do |show, episode|
     result = Episode.get_episode show, episode.to_i
-    export result, as: format
+    export result, @callback
   end
 end
