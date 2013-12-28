@@ -21,7 +21,7 @@ class Episode
   property :typesetting, Boolean, default: false
   property :encoding,    Boolean, default: false
   property :qchecking,   Boolean, default: false
-  property :download,    String
+  property :download,    Text
 
   property :created_at,  DateTime
   property :updated_at,  DateTime
@@ -37,37 +37,33 @@ class Episode
     end
 
     def edit(name, episode, stuff = {})
-      show = Show.first name: name
-      return false unless show
-      _episode = show.episodes.first episode: episode
-      return false unless _episode
-      _episode.update({ episode: episode }.merge(stuff))
+      episode = get_episode name, episode
+      return false unless episode
+      episode.update({ episode: episode }.merge(stuff))
     end
 
     def remove(name, episode, stuff = {})
-      show = Show.first name: name
-      return false unless show
-      _episode = show.episodes.first({ episode: episode }.merge(stuff))
-      return false unless _episode      
-      _episode.destroy
+      episode = Episode.get_episode name, episode, stuff
+      return false unless episode      
+      episode.destroy
     end
 
     def get_episode(name, episode, stuff = {})
       Episode.first({
         :episode => episode,
-        :show    => { name: name }
+        show_name: name
       }.merge(stuff))
     end
 
     def get_episodes(name, stuff = {})
       Episode.all({
-        :show => { name: name }
+        show_name: name
       }.merge(stuff))
     end
 
     def last_episode(name, stuff = {})
       episode = Episode.last({
-        :show => { name: name }
+        show_name: name
       }.merge(stuff))
       
       episode ? episode.episode : 0

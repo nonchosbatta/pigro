@@ -151,9 +151,10 @@ class User
 
     def authentication(username, password)
       user = User.first username: username
-      return false unless user
-      if user.salted_password == BCrypt::Engine.hash_secret(password, user.salt)
-        return user.update(session: BCrypt::Engine.generate_salt) ? user.session : false
+      if not user
+        false
+      elsif user.salted_password == BCrypt::Engine.hash_secret(password, user.salt)
+        user.update(session: BCrypt::Engine.generate_salt) ? user.session : false
       else
         false
       end
