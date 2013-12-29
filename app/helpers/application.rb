@@ -10,6 +10,13 @@
 
 class Pigro
   helpers do
+    def cross_origin
+      headers({
+        'Access-Control-Allow-Origin'  => ?*,
+        'Access-Control-Allow-Methods' => ['OPTIONS', 'GET']
+      })
+    end
+
     def fields?(*args)
       args.each { |a|
         return false unless params.include? a.to_s
@@ -17,7 +24,7 @@ class Pigro
       true
     end
 
-    def export(collection, callback = nil, options = {})
+    def export(collection, options = {}, callback = nil)
       only    = options.include?(:only)    ? options[:only]      : []
       exclude = options.include?(:exclude) ? options[:exclude]   : []
       methods = options.include?(:methods) ? options[:methods]   : []

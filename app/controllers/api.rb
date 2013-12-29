@@ -10,31 +10,31 @@
 
 class Pigro
   before /\/api\// do
-    @callback = params.delete 'callback'
+    cross_origin
   end
 
   get '/api/shows/all' do
     result = Show.all
-    export result, @callback, only: :name
+    export result, only: :name
   end
 
   get '/api/shows/search/:keyword' do |keyword|
     result = Show.find_shows keyword
-    export result, @callback, only: :name
+    export result, only: :name
   end
 
   get '/api/shows/get/:show' do |show|
     result = Show.get_show show
-    export result, @callback
+    export result
   end
 
   get '/api/shows/get/:show/episodes/list' do |show|
     result = Episode.get_episodes show
-    export result, @callback, only: :episode
+    export result, only: :episode
   end
 
   get '/api/shows/get/:show/episodes/get/:episode' do |show, episode|
     result = Episode.get_episode show, episode.to_i
-    export result, @callback
+    export result
   end
 end
