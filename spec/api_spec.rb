@@ -5,7 +5,7 @@ require 'rspec'
 require 'rack/test'
 require 'json'
 
-describe 'Pigro' do
+describe 'Pigro\'s APIs' do
   include Rack::Test::Methods
 
   def app
@@ -65,7 +65,7 @@ describe 'Pigro' do
     episode.should_not    be_nil
   end
 
-  it 'calls shows/all' do
+  it 'call shows/all' do
     get '/api/shows/all'
     last_response.should be_ok
 
@@ -75,7 +75,12 @@ describe 'Pigro' do
     json.first['name'].should eql(@show_name)
   end
 
-  it 'calls shows/search/:keyword' do
+  it 'use CORS' do
+    get '/api/shows/all'
+    last_response.headers['Access-Control-Allow-Origin'].should eql(?*)
+  end
+
+  it 'call shows/search/:keyword' do
     get "/api/shows/search/#{URI.escape @show_name[0..6]}"
     last_response.should be_ok
 
@@ -85,7 +90,7 @@ describe 'Pigro' do
     json.first['name'].should eql(@show_name)
   end
 
-  it 'calls shows/get/:show' do
+  it 'call shows/get/:show' do
     get "/api/shows/get/#{URI.escape @show_name}"
     last_response.should be_ok
 
@@ -95,7 +100,7 @@ describe 'Pigro' do
     json['tot_episodes'].to_i.should eql(@tot_episodes)
   end
 
-  it 'calls shows/get/:show/episodes/list' do
+  it 'call shows/get/:show/episodes/list' do
     get "/api/shows/get/#{URI.escape @show_name}/episodes/list"
     last_response.should be_ok
 
@@ -105,7 +110,7 @@ describe 'Pigro' do
     json.first['episode'].to_i.should eql(@episode_number)
   end
 
-  it 'calls shows/get/:show/episodes/get/:episode' do
+  it 'call shows/get/:show/episodes/get/:episode' do
     get "/api/shows/get/#{URI.escape @show_name}/episodes/get/#{@episode_number}"
     last_response.should be_ok
 
