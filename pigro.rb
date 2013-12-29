@@ -9,7 +9,6 @@
 #++
 
 require 'sinatra/base'
-require 'sinatra/cross_origin'
 require 'bcrypt'
 require 'data_mapper'
 require 'dm-sqlite-adapter'
