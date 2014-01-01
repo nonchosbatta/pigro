@@ -28,13 +28,8 @@ class Pigro
     export result
   end
 
-  get '/api/shows/get/:show/episodes/list' do |show|
+  get '/api/shows/get/:show/episodes/all' do |show|
     result = Episode.get_episodes show
-    export result, only: :episode
-  end
-
-  get '/api/shows/get/:show/episodes/get/:episode' do |show, episode|
-    result = Episode.get_episode show, episode.to_i
     export result
   end
 end
