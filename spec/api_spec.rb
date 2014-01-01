@@ -100,18 +100,8 @@ describe 'Pigro\'s APIs' do
     json['tot_episodes'].to_i.should eql(@tot_episodes)
   end
 
-  it 'call shows/get/:show/episodes/list' do
-    get "/api/shows/get/#{URI.escape @show_name}/episodes/list"
-    last_response.should be_ok
-
-    json = JSON.parse last_response.body
-    json.should_not be_empty
-
-    json.first['episode'].to_i.should eql(@episode_number)
-  end
-
-  it 'call shows/get/:show/episodes/get/:episode' do
-    get "/api/shows/get/#{URI.escape @show_name}/episodes/get/#{@episode_number}"
+  it 'call shows/get/:show/episodes/all' do
+    get "/api/shows/get/#{URI.escape @show_name}/episodes/all"
     last_response.should be_ok
 
     json = JSON.parse last_response.body
