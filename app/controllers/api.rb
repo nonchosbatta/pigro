@@ -13,22 +13,22 @@ class Pigro
     cross_origin
   end
 
-  get '/api/shows/all' do
+  get '/api/shows/all/?' do
     result = Show.all
     export result, only: :name
   end
 
-  get '/api/shows/search/:keyword' do |keyword|
+  get '/api/shows/search/:keyword/?' do |keyword|
     result = Show.find_shows keyword
     export result, only: :name
   end
 
-  get '/api/shows/get/:show' do |show|
+  get '/api/shows/get/:show/?' do |show|
     result = Show.get_show show
     export result
   end
 
-  get '/api/shows/get/:show/episodes/all' do |show|
+  get '/api/shows/get/:show/episodes/all/?' do |show|
     result = Episode.get_episodes show
     export result
   end
