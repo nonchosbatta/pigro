@@ -6,7 +6,6 @@ gem 'bcrypt-ruby'
 gem 'data_mapper'
 gem 'dm-sqlite-adapter'
 gem 'rack_csrf'
-gem 'chronic'
 
 # spec
 gem 'rack-test'

@@ -22,7 +22,7 @@ describe 'Pigro\'s APIs' do
     @tot_episodes = 23
     @show_data    = {
       :tot_episodes => @tot_episodes,
-      :airing       => 'tuesday at 19:00',
+      :fansub       => 'Gli Shinbati',
       :translator   => 'Gustavo',
       :editor       => 'Patrizio',
       :typesetter   => 'Clodovico',

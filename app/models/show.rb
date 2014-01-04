@@ -15,8 +15,7 @@ class Show
   property :name,         String,  unique: true, required: true, key: true
   property :tot_episodes, String,  default: 13
   property :status,       Enum[ :ongoing, :finished, :dropped ], default: :ongoing
-  property :airing,       String
-  property :airing_t,     Time
+  property :fansub,       String
 
   property :translator,   String
   property :editor,       String
@@ -30,10 +29,6 @@ class Show
   property :updated_at,   DateTime
 
   has n, :episodes, constraint: :destroy
-
-  def airing_t
-    Chronic.parse self.airing
-  end
 
   class << self
     def add(name, stuff = {})
