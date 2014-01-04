@@ -50,7 +50,7 @@ class Pigro
     else
       data   = {
         :tot_episodes => params[:tot_episodes] ? params[:tot_episodes].to_i : 13,
-        :airing       => params[:airing      ],
+        :fansub       => params[:fansub      ],
         :translator   => params[:translator  ],
         :editor       => params[:editor      ],
         :checker      => params[:checker     ],
@@ -87,7 +87,7 @@ class Pigro
     else
       data = {
         :tot_episodes => params[:tot_episodes] ? params[:tot_episodes].to_i : 13,
-        :airing       => params[:airing      ],
+        :fansub       => params[:fansub      ],
         :translator   => params[:translator  ],
         :editor       => params[:editor      ],
         :checker      => params[:checker     ],
