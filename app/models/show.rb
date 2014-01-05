@@ -14,7 +14,7 @@ class Show
   property :id,           Serial
   property :name,         String,  unique: true, required: true, key: true
   property :tot_episodes, String,  default: 13
-  property :status,       Enum[ :ongoing, :finished, :dropped ], default: :ongoing
+  property :status,       Enum[ :ongoing, :finished, :dropped, :planned ], default: :ongoing
   property :fansub,       String
 
   property :translator,   String

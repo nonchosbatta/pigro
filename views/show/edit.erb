@@ -38,6 +38,7 @@
       <option value="ongoing"  <%= 'selected' if @show.status == :ongoing  %>>On going</option>
       <option value="finished" <%= 'selected' if @show.status == :finished %>>Finished</option>
       <option value="dropped"  <%= 'selected' if @show.status == :dropped  %>>Dropped </option>
+      <option value="planned"  <%= 'selected' if @show.status == :planned  %>>Planned </option>
     </select><br>
 
     <%= csrf_tag %>
