@@ -13,22 +13,26 @@ class Pigro
     cross_origin
   end
 
-  get '/api/shows/all/?' do
-    result = Show.all
-    export result, only: :name
-  end
-
-  get '/api/shows/search/:keyword/?' do |keyword|
-    result = Show.find_shows keyword
-    export result, only: :name
-  end
-
-  get '/api/shows/get/:show/?' do |show|
-    result = Show.get_show show
+  # return all the shows with the given status and fansub
+  get '/api/v1/shows/all/:status/:fansub' do |status, fansub|
+    result = Show.all status: status.downcase.to_sym, fansub: fansub
     export result
   end
 
-  get '/api/shows/get/:show/episodes/all/?' do |show|
+  # return all the shows with the given status
+  get '/api/v1/shows/all/:status/?' do |status|
+    result = Show.all status: status.downcase.to_sym
+    export result
+  end
+
+  # return all the shows matching the given keyword
+  get '/api/v1/shows/search/:keyword/?' do |keyword|
+    result = Show.find_shows keyword
+    export result
+  end
+
+  # return all the episodes of the given show
+  get '/api/v1/episodes/:show/?' do |show|
     result = Episode.get_episodes show
     export result
   end

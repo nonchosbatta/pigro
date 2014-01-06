@@ -44,7 +44,7 @@ describe 'Pigro\'s APIs' do
     }
   end
 
-  it 'initialize correctly shows and episodes' do
+  it 'initializes correctly shows and episodes' do
     unless User.exists? @username
       user = User.signup @username, @email, @password, @level
       user.errors.should be_empty
@@ -65,23 +65,13 @@ describe 'Pigro\'s APIs' do
     episode.should_not    be_nil
   end
 
-  it 'call shows/all' do
-    get '/api/shows/all'
-    last_response.should be_ok
-
-    json = JSON.parse last_response.body
-    json.should_not be_empty
-
-    json.first['name'].should eql(@show_name)
-  end
-
-  it 'use CORS' do
-    get '/api/shows/all'
+  it 'uses CORS' do
+    get '/api/v1/shows/all'
     last_response.headers['Access-Control-Allow-Origin'].should eql(?*)
   end
 
-  it 'call shows/search/:keyword' do
-    get "/api/shows/search/#{URI.escape @show_name[0..6]}"
+  it 'calls shows/all/:status' do
+    get '/api/v1/shows/all/ongoing'
     last_response.should be_ok
 
     json = JSON.parse last_response.body
@@ -90,25 +80,35 @@ describe 'Pigro\'s APIs' do
     json.first['name'].should eql(@show_name)
   end
 
-  it 'call shows/get/:show' do
-    get "/api/shows/get/#{URI.escape @show_name}"
+  it 'calls shows/all/:status/:fansub' do
+    get '/api/v1/shows/all/ongoing/Gli Shinbati'
     last_response.should be_ok
 
     json = JSON.parse last_response.body
     json.should_not be_empty
 
-    json['tot_episodes'].to_i.should eql(@tot_episodes)
+    json.first['fansub'].should eql('Gli Shinbati')
   end
 
-  it 'call shows/get/:show/episodes/all' do
-    get "/api/shows/get/#{URI.escape @show_name}/episodes/all"
+  it 'calls shows/search/:keyword' do
+    get "/api/v1/shows/search/#{URI.escape @show_name[0..6]}"
     last_response.should be_ok
 
     json = JSON.parse last_response.body
     json.should_not be_empty
 
-    json['episode'].to_i.should eql(@episode_number)
-    json['qchecking'].should    eql(@episode_data[:qchecking])
+    json.first['name'].should eql(@show_name)
+  end
+
+  it 'calls shows/episodes/:show' do
+    get "/api/v1/episodes/#{URI.escape @show_name}"
+    last_response.should be_ok
+
+    json = JSON.parse last_response.body
+    json.should_not be_empty
+
+    json.first['episode'].to_i.should eql(@episode_number)
+    json.first['qchecking'].should    eql(@episode_data[:qchecking])
   end
 
 end
