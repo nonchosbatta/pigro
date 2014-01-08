@@ -1,4 +1,4 @@
 <%= erb :'template/header' %>
   <h1>Pigro administration panel</h1>
-  <p>Welcome back, <%= logged_in? ? current_user.username : 'guest' %> ´_ゝ｀</p>
+  <p>Welcome <%= logged_in? ? "back, #{current_user.username}" : 'guest' %> ´_ゝ｀</p>
 <%= erb :'template/footer' %>

@@ -34,7 +34,6 @@
     <input type="text"   placeholder="qchecker"           name="qchecker"     value="<%= @show.qchecker     %>" class="form-control"          ><br>
     
     <select name="status" id="status" class="form-control">
-      <option>-- Status --</option>
       <option value="ongoing"  <%= 'selected' if @show.status == :ongoing  %>>On going</option>
       <option value="finished" <%= 'selected' if @show.status == :finished %>>Finished</option>
       <option value="dropped"  <%= 'selected' if @show.status == :dropped  %>>Dropped </option>

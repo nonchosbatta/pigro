@@ -43,7 +43,7 @@ class Pigro
   get '/user/change_level/?' do
     if not logged_in?
       @error = 'You need to log in.'
-    elsif not current_user.staff?
+    elsif not current_user.staffer?
       @error = 'Go home, this is not a place for you.'
     else
       @users = User.all
