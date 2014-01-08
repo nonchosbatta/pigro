@@ -21,13 +21,13 @@ class Pigro
     end
       alias_method :logged?, :logged_in?
 
-    def high_staff?
+    def high_staff? # can #change_level
       return false unless logged_in?
       current_user.high_staffer?
     end
       alias_method :high_staffer?, :high_staff?
 
-    def staff?
+    def staff? # can access in the administration panel
       return false unless logged_in?
       current_user.staffer?
     end

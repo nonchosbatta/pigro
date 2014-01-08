@@ -12,7 +12,7 @@ class Pigro
   get '/episode/add/?' do
     if not logged_in?
       @error = 'You need to log in.'
-    elsif not current_user.staff?
+    elsif not current_user.staffer?
       @error = 'Go home, this is not a place for you.'
     else
       @shows = Show.all
@@ -23,7 +23,7 @@ class Pigro
   get '/episode/edit/?' do
     if not logged_in?
       @error = 'You need to log in.'
-    elsif not current_user.staff?
+    elsif not current_user.staffer?
       @error = 'Go home, this is not a place for you.'
     else
       @shows = Show.all
@@ -34,7 +34,7 @@ class Pigro
   get '/episode/delete/?' do
     if not logged_in?
       @error = 'You need to log in.'
-    elsif not current_user.staff?
+    elsif not current_user.staffer?
       @error = 'Go home, this is not a place for you.'
     else
       @shows = Show.all
@@ -45,7 +45,7 @@ class Pigro
   post '/episode/add/?' do
     if not logged_in?
       @error = 'You need to log in.'
-    elsif not current_user.staff?
+    elsif not current_user.staffer?
       @error = 'Go home, this is not a place for you.'
     elsif fields? :name, :go
       show   = Show.get_show params[:name]
@@ -83,7 +83,7 @@ class Pigro
   post '/episode/edit/?' do
     if not logged_in?
       @error = 'You need to log in.'
-    elsif not current_user.staff?
+    elsif not current_user.staffer?
       @error = 'Go home, this is not a place for you.'
     elsif not fields? :name
       @error = 'To edit an episode, you need at least to send its name.'
@@ -130,7 +130,7 @@ class Pigro
   post '/episode/delete/?' do
     if not logged_in?
       @error = 'You need to log in.'
-    elsif not current_user.staff?
+    elsif not current_user.staffer?
       @error = 'Go home, this is not a place for you.'
     elsif not fields? :name
       @error = 'To delete an episode, you need to send its name.'

@@ -46,7 +46,6 @@ class User
   def smod?
     self.permission_level == User.smod
   end
-    alias_method :gmod?, :smod?
 
   def mod?
     self.permission_level == User.mod
@@ -60,12 +59,12 @@ class User
     false
   end
 
-  def high_staff?
+  def high_staff? # can #change_level
     founder? || admin?
   end
     alias_method :high_staffer?, :high_staff?
 
-  def staff?
+  def staff? # can access in the administration panel
     founder? || admin? || smod? || mod?
   end
     alias_method :staffer?, :staff?
@@ -101,7 +100,6 @@ class User
     def smod
       2
     end
-      alias_method :gmod, :smod
 
     def mod
       3
@@ -121,7 +119,6 @@ class User
         :founder => User.founder,
         :admin   => User.admin,
         :smod    => User.smod,
-        :gmod    => User.gmod,
         :mod     => User.mod,
         :user    => User.user
       }

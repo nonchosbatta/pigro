@@ -19,6 +19,7 @@ class Pigro < Sinatra::Base
   Dir.mkdir db_path unless Dir.exists? db_path
   DataMapper.setup :default, "sqlite3://#{db_path}/app.db"
 
+  set :views, ['app/views']
   configure {
     use Rack::Session::Cookie,
       :path   => '/',
