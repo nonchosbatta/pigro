@@ -9,7 +9,7 @@
   <form action="<%= @current_url %>" method="post" role="form">
     <h2><%= @title %></h2>
 
-    <select name="name">
+    <select name="name" class="form-control" data-live-search="true">
       <% @shows.each { |show| %>
         <option value="<%= show.name %>"><%= show.name %></option>
       <% } %>
@@ -22,7 +22,7 @@
   <form action="<%= @current_url %>" method="post" role="form">
     <h2><%= @title %></h2>
   
-    <select name="episode">
+    <select name="episode" class="form-control">
       <% @episodes.each { |episode| %>
         <option value="<%= episode.episode %>"><%= episode.episode %></option>
       <% } %>
