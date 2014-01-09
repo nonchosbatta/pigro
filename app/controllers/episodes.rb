@@ -68,13 +68,22 @@ class Pigro
         :download    => params[:download   ],
       }
 
-      episode = Episode.add params[:name], params[:episode].to_i, data
-      if not episode
-        @error   = 'Error adding the episode.'
-      elsif episode.errors.any?
-        @error   = episode.errors.first.first
+      if params[:global] == 'on'
+        episodes = Episode.apply_globally params[:name], data
+        if episodes
+          @success = 'One or more episodes have been added.'
+        else
+          @error   = 'Error adding one or more episodes.'
+        end
       else
-        @success = 'The episode has been added.'
+        episode = Episode.add params[:name], params[:episode].to_i, data
+        if not episode
+          @error   = 'Error adding the episode.'
+        elsif episode.errors.any?
+          @error   = episode.errors.first.first
+        else
+          @success = 'The episode has been added.'
+        end
       end
     end
     erb :'episode/add'
@@ -117,11 +126,20 @@ class Pigro
         :download    => params[:download   ],
       }
 
-      episode = Episode.edit params[:name], params[:episode].to_i, data
-      if episode
-        @success = 'The episode has been edited.'
+      if params[:global] == 'on'
+        episodes = Episode.apply_globally params[:name], data
+        if episodes
+          @success = 'One or more episodes have been added.'
+        else
+          @error   = 'Error editing one or more episodes.'
+        end
       else
-        @error   = 'Error editing the episode'
+        episode = Episode.edit params[:name], params[:episode].to_i, data
+        if episode
+          @success = 'The episode has been edited.'
+        else
+          @error   = 'Error editing the episode'
+        end
       end
     end
     erb :'episode/edit'

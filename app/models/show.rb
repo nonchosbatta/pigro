@@ -13,7 +13,7 @@ class Show
 
   property :id,           Serial
   property :name,         String,  unique: true, required: true, key: true
-  property :tot_episodes, String,  default: 13
+  property :tot_episodes, Integer, default: 13,  min: 0
   property :status,       Enum[ :ongoing, :finished, :dropped, :planned ], default: :ongoing
   property :fansub,       String
 
@@ -29,6 +29,10 @@ class Show
   property :updated_at,   DateTime
 
   has n, :episodes, constraint: :destroy
+
+  def count_episodes
+    Episode.get_episodes(self.name).count
+  end
 
   class << self
     def add(name, stuff = {})

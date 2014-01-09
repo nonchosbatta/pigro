@@ -49,7 +49,7 @@ class Pigro
       @error = 'To add a show, you need at least to send its name.'
     else
       data   = {
-        :tot_episodes => params[:tot_episodes] ? params[:tot_episodes].to_i : 13,
+        :tot_episodes => params[:tot_episodes].to_i,
         :fansub       => params[:fansub      ],
         :translator   => params[:translator  ],
         :editor       => params[:editor      ],
@@ -86,7 +86,7 @@ class Pigro
       end
     else
       data = {
-        :tot_episodes => params[:tot_episodes] ? params[:tot_episodes].to_i : 13,
+        :tot_episodes => params[:tot_episodes].to_i,
         :fansub       => params[:fansub      ],
         :translator   => params[:translator  ],
         :editor       => params[:editor      ],

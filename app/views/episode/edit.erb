@@ -22,7 +22,7 @@
   <form action="<%= @current_url %>" method="post" role="form">
     <h2><%= @title %></h2>
   
-    <select name="episode" class="form-control">
+    <select name="episode" class="form-control" data-live-search="true">
       <% @episodes.each { |episode| %>
         <option value="<%= episode.episode %>"><%= episode.episode %></option>
       <% } %>
@@ -47,7 +47,8 @@
     <input type="checkbox" name="encoding"    data-label="Encoding"    class="form-control" <%= 'checked' if @episode.encoding    %>><br>
     <input type="checkbox" name="qchecking"   data-label="QC"          class="form-control" <%= 'checked' if @episode.qchecking   %>><br>
     
-    <input type="url"      name="download"    placeholder="download"   value="<%= @episode.download %>" class="form-control"><br>
+    <input type="url"      name="download"    placeholder="download"     value="<%= @episode.download %>" class="form-control"><br>
+    <input type="checkbox" name="global"      data-label="Appy globally" class="form-control"><br>
     
     <%= csrf_tag %>
     <input type="hidden" name="name"    value="<%= @name %>">
