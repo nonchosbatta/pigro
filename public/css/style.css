@@ -50,3 +50,9 @@ form .form-control[type="password"] {
   margin-top: -25px;
   margin-bottom: -25px;
 }
+
+.footer {
+  height: 60px;
+  text-align: right;
+  padding-right: 10px;
+}
