@@ -42,16 +42,40 @@ class Episode
       episode.update({ episode: episode }.merge(stuff))
     end
 
+    def apply_globally(name, stuff = {})
+      show = Show.get_show name
+      return false unless show
+      return true  if show.tot_episodes == 0
+
+      0.tap { |fails|
+        1.upto(show.tot_episodes) { |episode|
+          if Episode.exists? name, episode
+            fails += 1 unless Episode.edit name, episode, stuff
+          else
+            res = Episode.add name, episode, stuff
+            fails += 1 if !res || res.errors.empty?
+          end
+        }
+      } == 0
+    end
+
     def remove(name, episode, stuff = {})
       episode = Episode.get_episode name, episode, stuff
       return false unless episode      
       episode.destroy
     end
 
+    def exists?(name, episode, stuff = {})
+      Episode.count({
+        :episode   => episode,
+        :show_name => name
+      }.merge(stuff)) > 0
+    end
+
     def get_episode(name, episode, stuff = {})
       Episode.first({
-        :episode => episode,
-        show_name: name
+        :episode   => episode,
+        :show_name => name
       }.merge(stuff))
     end
 

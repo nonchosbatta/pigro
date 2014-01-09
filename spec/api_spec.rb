@@ -22,7 +22,7 @@ describe 'Pigro\'s APIs' do
     @tot_episodes = 23
     @show_data    = {
       :tot_episodes => @tot_episodes,
-      :fansub       => 'Gli Shinbati',
+      :fansub       => 'GliShinbati',
       :translator   => 'Gustavo',
       :editor       => 'Patrizio',
       :typesetter   => 'Clodovico',
@@ -81,13 +81,13 @@ describe 'Pigro\'s APIs' do
   end
 
   it 'calls shows/all/:status/:fansub' do
-    get '/api/v1/shows/all/ongoing/Gli Shinbati'
+    get '/api/v1/shows/all/ongoing/GliShinbati'
     last_response.should be_ok
 
     json = JSON.parse last_response.body
     json.should_not be_empty
 
-    json.first['fansub'].should eql('Gli Shinbati')
+    json.first['fansub'].should eql('GliShinbati')
   end
 
   it 'calls shows/search/:keyword' do

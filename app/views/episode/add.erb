@@ -22,7 +22,7 @@
   <form action="<%= @current_url %>" method="post" role="form">
     <h2><%= @title %></h2>
     
-    <input type="text"     placeholder="<%= @show.name %>" class="form-control"                                                 required autofocus readonly><br>
+    <input type="text"     placeholder="<%= @show.name %>" class="form-control" required autofocus readonly><br>
     <input type="number"   placeholder="episode"           class="form-control" name="episode" value="<%= Episode.last_episode(@show.name) + 1 %>" required><br>
 
     <input type="checkbox" name="translation" data-label="Translation" class="form-control"><br>
@@ -33,7 +33,8 @@
     <input type="checkbox" name="encoding"    data-label="Encoding"    class="form-control"><br>
     <input type="checkbox" name="qchecking"   data-label="QC"          class="form-control"><br>
 
-    <input type="url"      name="download"    placeholder="download"   class="form-control"><br>
+    <input type="url"      name="download"    placeholder="download"     class="form-control"><br>
+    <input type="checkbox" name="global"      data-label="Appy globally" class="form-control"><br>
 
     <%= csrf_tag %>
     <input  type="hidden" name="name" value="<%= @show.name %>">

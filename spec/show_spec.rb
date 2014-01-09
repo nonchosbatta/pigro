@@ -73,6 +73,16 @@ describe 'Pigro' do
     episode.editing.should     be_false
   end
 
+  it 'adds all the episodes to a show' do
+    episode = Episode.add_globally @show_name, @episode_data
+    episode.should_not be_false
+
+    episode = Episode.get_episode @show_name, @episode_number + 4
+    episode.should_not         be_nil
+    episode.translation.should be_true
+    episode.editing.should     be_false
+  end
+
   it 'edits an episode of a show' do
     data = {
       :translation => false,
