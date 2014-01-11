@@ -19,15 +19,15 @@ class Pigro
     export result
   end
 
-  # return all the shows with the given status and fansub
-  get '/api/v1/fansubs/:fansub/shows/all/:status' do |fansub, status|
-    result = Show.all status: status.downcase.to_sym, fansub: fansub
-    export result
-  end
-
   # return all the shows matching the given keyword
   get '/api/v1/shows/search/:keyword/?' do |keyword|
     result = Show.find_shows keyword
+    export result
+  end
+
+  # return all the shows with the given status and fansub
+  get '/api/v1/fansubs/:fansub/shows/all/:status' do |fansub, status|
+    result = Show.all status: status.downcase.to_sym, fansub: fansub
     export result
   end
 
