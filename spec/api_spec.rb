@@ -80,16 +80,6 @@ describe 'Pigro\'s APIs' do
     json.first['name'].should eql(@show_name)
   end
 
-  it 'calls shows/all/:status/:fansub' do
-    get '/api/v1/shows/all/ongoing/GliShinbati'
-    last_response.should be_ok
-
-    json = JSON.parse last_response.body
-    json.should_not be_empty
-
-    json.first['fansub'].should eql('GliShinbati')
-  end
-
   it 'calls shows/search/:keyword' do
     get "/api/v1/shows/search/#{URI.escape @show_name[0..6]}"
     last_response.should be_ok
@@ -98,6 +88,36 @@ describe 'Pigro\'s APIs' do
     json.should_not be_empty
 
     json.first['name'].should eql(@show_name)
+  end
+
+  it 'calls fansubs/:fansub/shows/all/:status' do
+    get '/api/v1/fansubs/GliShinbati/shows/all/ongoing'
+    last_response.should be_ok
+
+    json = JSON.parse last_response.body
+    json.should_not be_empty
+
+    json.first['fansub'].should eql('GliShinbati')
+  end
+
+  it 'calls users/:user/shows/all/:status' do
+    get '/api/v1/users/Gustavo/shows/all/ongoing'
+    last_response.should be_ok
+
+    json = JSON.parse last_response.body
+    json.should_not be_empty
+
+    json.first['name'].should eql('Monogatari Series Second Season')
+  end
+
+  it 'calls users/:user/:role/shows/all/:status' do
+    get '/api/v1/users/Gustavo/translator/shows/all/ongoing'
+    last_response.should be_ok
+
+    json = JSON.parse last_response.body
+    json.should_not be_empty
+
+    json.first['name'].should eql('Monogatari Series Second Season')
   end
 
   it 'calls shows/episodes/:show' do
