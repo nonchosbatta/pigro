@@ -58,6 +58,10 @@ class Show
     def find_shows(keyword)
       Show.all :name.like => "%#{keyword}%"
     end
+
+    def role?(role)
+      [ :translator, :editor, :checker, :timer, :typesetter, :encoder, :qchecker ].include? role
+    end
     
   end
 end
