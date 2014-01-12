@@ -100,28 +100,23 @@ class Episode
       }.merge(stuff))
     end
 
-    def last_episode(name, stuff = {})
-      episode = Episode.last({
+    def get_last_episode(name, stuff = {})
+      Episode.last({
         show_name: name
       }.merge(stuff))
-      
+    end
+
+    def last_episode(name, stuff = {})
+      episode = get_last_episode name, stuff
       episode ? episode.episode : 0
-    end
-
-    def unreleased
-      Episode.all.select { |e| not e.complete? }
-    end
-
-    def released
-      Episode.all.select { |e| e.complete? }
     end
 
     def last_episodes(status)
       [].tap { |e|
         Show.all(status: status).each { |show|
           episodes   = Episode.all show_name: show.name
-          released   = episodes.released
-          unreleased = episodes.unreleased
+          released   = episodes.select { |e|     e.complete? }
+          unreleased = episodes.select { |e| not e.complete? }
 
           e << (unreleased.empty? ? released.last : unreleased.first)
         }
