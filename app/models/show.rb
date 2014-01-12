@@ -30,6 +30,17 @@ class Show
 
   has n, :episodes, constraint: :destroy
 
+  before :save, :purge
+
+  def purge
+    self.name   = Rack::Utils.escape_html self.name
+    self.fansub = Rack::Utils.escape_html self.fansub
+
+    Show.roles.each { |r|
+      instance_variable_set "@#{r}", self.send(r).gsub(?/, ?+)
+    }
+  end
+
   def count_episodes
     Episode.get_episodes(self.name).count
   end
