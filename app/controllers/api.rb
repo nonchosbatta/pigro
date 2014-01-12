@@ -19,12 +19,6 @@ class Pigro
     export result
   end
 
-  # return the latest episode of all the series having the given status
-  get '/api/v1/shows/last/:status/?' do |status|
-    result = Episode.last_episodes status
-    export result
-  end
-
   # return all the shows matching the given keyword
   get '/api/v1/shows/search/:keyword/?' do |keyword|
     result = Show.find_shows keyword
@@ -56,6 +50,12 @@ class Pigro
     export nil unless Show.role? role.to_sym
 
     result = Show.all :status => status.downcase.to_sym, :"#{role.to_sym}" => user
+    export result
+  end
+
+  # return the latest episode of all the series having the given status
+  get '/api/v1/episodes/last/:status/?' do |status|
+    result = Episode.last_episodes status
     export result
   end
 
