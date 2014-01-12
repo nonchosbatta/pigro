@@ -19,6 +19,12 @@ class Pigro
     export result
   end
 
+  # return the latest show of all the series with the given status
+  get '/api/v1/shows/last/:status/?' do |status|
+    result = Show.all(status: status.downcase.to_sym).map { |show| Episode.get_episodes(show.name).last }
+    export result
+  end
+
   # return all the shows matching the given keyword
   get '/api/v1/shows/search/:keyword/?' do |keyword|
     result = Show.find_shows keyword
