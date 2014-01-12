@@ -92,5 +92,13 @@ class Episode
       
       episode ? episode.episode : 0
     end
+
+    def last_episodes(status)
+      [].tap { |e|
+        Show.all(status: status).each { |show|
+          e << Episode.last(show_name: show.name)
+        }
+      }
+    end
   end
 end

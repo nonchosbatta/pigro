@@ -13,15 +13,15 @@ class Pigro
     cross_origin
   end
 
-  # return all the shows with the given status
+  # return all the shows having the given status
   get '/api/v1/shows/all/:status/?' do |status|
     result = Show.all status: status.downcase.to_sym
     export result
   end
 
-  # return the latest show of all the series with the given status
+  # return the latest episode of all the series having the given status
   get '/api/v1/shows/last/:status/?' do |status|
-    result = Show.all(status: status.downcase.to_sym).map { |show| Episode.get_episodes(show.name).last }
+    result = Episode.last_episodes status
     export result
   end
 
@@ -31,7 +31,7 @@ class Pigro
     export result
   end
 
-  # return all the shows with the given status and fansub
+  # return all the shows having the given status and fansub
   get '/api/v1/fansubs/:fansub/shows/all/:status' do |fansub, status|
     result = Show.all status: status.downcase.to_sym, fansub: fansub
     export result
