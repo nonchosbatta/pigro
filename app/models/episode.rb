@@ -119,8 +119,11 @@ class Episode
     def last_episodes(status)
       [].tap { |e|
         Show.all(status: status).each { |show|
-          episodes = Episode.all show_name: show.name
-          e << (episodes.unreleased.empty? ? episodes.released.last : episodes.unreleased.first)
+          episodes   = Episode.all show_name: show.name
+          released   = episodes.released
+          unreleased = episodes.unreleased
+
+          e << (unreleased.empty? ? released.last : unreleased.first)
         }
       }
     end
