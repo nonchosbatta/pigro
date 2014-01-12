@@ -81,7 +81,7 @@ describe 'Pigro\'s APIs' do
   end
 
   it 'calls shows/last/:status' do
-    get '/api/v1/shows/last/ongoing'
+    get '/api/v1/episodes/last/ongoing'
     last_response.should be_ok
 
     json = JSON.parse last_response.body

@@ -28,7 +28,22 @@ class Episode
 
   belongs_to :show
 
+  def complete?
+    Episode.tasks.each { |t|
+      return false unless self.send t
+    }
+    true
+  end
+
   class << self
+    def tasks
+      [ :translation, :editing, :checking, :timing, :typesetting, :encoding, :qchecking ]
+    end
+
+    def task?(task)
+      Episode.tasks.include? task
+    end
+
     def add(name, episode, stuff = {})
       return false if Episode.get_episode name, episode
       show = Show.first name: name
@@ -93,10 +108,14 @@ class Episode
       episode ? episode.episode : 0
     end
 
+    def unreleased
+      Episode.all.select { |e| not e.complete? }
+    end
+
     def last_episodes(status)
       [].tap { |e|
         Show.all(status: status).each { |show|
-          e << Episode.last(show_name: show.name)
+          e << Episode.all(show_name: show.name).unreleased.first
         }
       }
     end

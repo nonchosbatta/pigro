@@ -53,7 +53,7 @@ class Pigro
     export result
   end
 
-  # return the latest episode of all the series having the given status
+  # return the first of non-completed episodes of all the series having the given status
   get '/api/v1/episodes/last/:status/?' do |status|
     result = Episode.last_episodes status
     export result

@@ -35,6 +35,14 @@ class Show
   end
 
   class << self
+    def roles
+      [ :translator, :editor, :checker, :timer, :typesetter, :encoder, :qchecker ]
+    end
+
+    def role?(role)
+      Show.roles.include? role
+    end
+    
     def add(name, stuff = {})
       Show.create({ name: name }.merge(stuff))
     end
@@ -57,10 +65,6 @@ class Show
 
     def find_shows(keyword)
       Show.all :name.like => "%#{keyword}%"
-    end
-
-    def role?(role)
-      [ :translator, :editor, :checker, :timer, :typesetter, :encoder, :qchecker ].include? role
     end
     
   end
