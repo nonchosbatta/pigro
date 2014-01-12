@@ -112,10 +112,15 @@ class Episode
       Episode.all.select { |e| not e.complete? }
     end
 
+    def released
+      Episode.all.select { |e| e.complete? }
+    end
+
     def last_episodes(status)
       [].tap { |e|
         Show.all(status: status).each { |show|
-          e << Episode.all(show_name: show.name).unreleased.first
+          episodes = Episode.all show_name: show.name
+          e << (episodes.unreleased.empty? ? episodes.released.last : episodes.unreleased.first)
         }
       }
     end

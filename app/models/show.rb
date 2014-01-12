@@ -66,6 +66,5 @@ class Show
     def find_shows(keyword)
       Show.all :name.like => "%#{keyword}%"
     end
-    
   end
 end
