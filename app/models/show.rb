@@ -33,9 +33,6 @@ class Show
   before :save, :purge
 
   def purge
-    self.name   = Rack::Utils.escape_html self.name
-    self.fansub = Rack::Utils.escape_html self.fansub
-
     Show.roles.each { |r|
       instance_variable_set "@#{r}", self.send(r).gsub(?/, ?+)
     }

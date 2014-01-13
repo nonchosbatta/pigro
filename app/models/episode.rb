@@ -11,20 +11,21 @@
 class Episode
   include DataMapper::Resource
 
-  property :id,          Serial
-  property :episode,     Integer, required: true, key: true
+  property :id,           Serial
+  property :episode,      Integer, required: true, key: true
+  property :last_episode, Boolean, default: false
 
-  property :translation, Boolean, default: false
-  property :editing,     Boolean, default: false
-  property :checking,    Boolean, default: false
-  property :timing,      Boolean, default: false
-  property :typesetting, Boolean, default: false
-  property :encoding,    Boolean, default: false
-  property :qchecking,   Boolean, default: false
-  property :download,    Text
+  property :translation,  Boolean, default: false
+  property :editing,      Boolean, default: false
+  property :checking,     Boolean, default: false
+  property :timing,       Boolean, default: false
+  property :typesetting,  Boolean, default: false
+  property :encoding,     Boolean, default: false
+  property :qchecking,    Boolean, default: false
+  property :download,     Text
 
-  property :created_at,  DateTime
-  property :updated_at,  DateTime
+  property :created_at,   DateTime
+  property :updated_at,   DateTime
 
   belongs_to :show
 
@@ -44,6 +45,20 @@ class Episode
       Episode.tasks.include? task
     end
 
+    def update_last_episode
+      Show.all.each { |show|
+        episodes   = show.episodes.all
+        released   = episodes.select { |e|     e.complete? }
+        unreleased = episodes.select { |e| not e.complete? }
+
+        ep = unreleased.empty? ? released.last : unreleased.first
+        if ep
+          episodes.update last_episode: false
+          ep.update       last_episode: true
+        end
+      }
+    end
+
     def add(name, episode, stuff = {})
       return false if Episode.get_episode name, episode
       show = Show.first name: name
@@ -54,7 +69,9 @@ class Episode
     def edit(name, episode, stuff = {})
       episode = get_episode name, episode
       return false unless episode
-      episode.update({ episode: episode }.merge(stuff))
+      episode.update({ episode: episode }.merge(stuff)).tap { |r|
+        update_last_episode
+      }
     end
 
     def apply_globally(name, stuff = {})
@@ -112,15 +129,7 @@ class Episode
     end
 
     def last_episodes(status)
-      [].tap { |e|
-        Show.all(status: status).each { |show|
-          episodes   = Episode.all show_name: show.name
-          released   = episodes.select { |e|     e.complete? }
-          unreleased = episodes.select { |e| not e.complete? }
-
-          e << (unreleased.empty? ? released.last : unreleased.first)
-        }
-      }
+      Episode.all last_episode: true, show: { status: status }
     end
   end
 end
