@@ -45,18 +45,16 @@ class Episode
       Episode.tasks.include? task
     end
 
-    def update_last_episode
-      Show.all.each { |show|
-        episodes   = show.episodes.all
-        released   = episodes
-        unreleased = episodes.select { |e| not e.complete? }
+    def update_last_episode(show)
+      episodes   = show.episodes.all
+      released   = episodes
+      unreleased = episodes.select { |e| not e.complete? }
 
-        ep = unreleased.empty? ? released.last : unreleased.first
-        if ep
-          episodes.update last_episode: false
-          ep.update       last_episode: true
-        end
-      }
+      ep = unreleased.empty? ? released.last : unreleased.first
+      if ep
+        episodes.update last_episode: false
+        ep.update       last_episode: true
+      end
     end
 
     def add(name, episode, stuff = {})
@@ -70,7 +68,7 @@ class Episode
       episode = get_episode name, episode
       return false unless episode
       episode.update({ episode: episode }.merge(stuff)).tap { |r|
-        update_last_episode
+        update_last_episode episode.show
       }
     end
 
