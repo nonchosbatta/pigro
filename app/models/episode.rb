@@ -46,6 +46,8 @@ class Episode
     end
 
     def update_last_episode(show)
+      return unless show
+      
       episodes   = show.episodes.all
       released   = episodes
       unreleased = episodes.select { |e| not e.complete? }
@@ -61,7 +63,9 @@ class Episode
       return false if Episode.get_episode name, episode
       show = Show.first name: name
       return false unless show
-      show.episodes.create({ episode: episode }.merge(stuff))
+      show.episodes.create({ episode: episode }.merge(stuff)).tap { |r|
+        update_last_episode Episode.get_last_episode(name)
+      }
     end
 
     def edit(name, episode, stuff = {})
@@ -72,13 +76,14 @@ class Episode
       }
     end
 
-    def apply_globally(name, stuff = {})
+    def apply_globally(name, stuff = {}, episodes = 0)
       show = Show.get_show name
       return false unless show
       return true  if show.tot_episodes == 0
 
+      episodes = episodes > 0 ? episodes : show.tot_episodes
       0.tap { |fails|
-        1.upto(show.tot_episodes) { |episode|
+        1.upto(episodes) { |episode|
           if Episode.exists? name, episode
             fails += 1 unless Episode.edit name, episode, stuff
           else

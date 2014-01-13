@@ -58,18 +58,19 @@ class Pigro
       @error = 'To add an episode, you need at least to send its name and what episode it is.'
     else
       data = {
-        :translation => params[:translation] == 'on',
-        :editing     => params[:editing    ] == 'on',
-        :checking    => params[:checking   ] == 'on',
-        :timing      => params[:timing     ] == 'on',
-        :typesetting => params[:typesetting] == 'on',
-        :encoding    => params[:encoding   ] == 'on',
-        :qchecking   => params[:qchecking  ] == 'on',
-        :download    => params[:download   ],
+        :translation    => params[:translation   ] == 'on',
+        :editing        => params[:editing       ] == 'on',
+        :checking       => params[:checking      ] == 'on',
+        :timing         => params[:timing        ] == 'on',
+        :typesetting    => params[:typesetting   ] == 'on',
+        :encoding       => params[:encoding      ] == 'on',
+        :qchecking      => params[:qchecking     ] == 'on',
+        :download       => params[:download      ],
+        :apply_episodes => params[:apply_episodes]
       }
 
       if params[:global] == 'on'
-        episodes = Episode.apply_globally params[:name], data
+        episodes = Episode.apply_globally params[:name], data, params[:apply_episodes].to_i
         if episodes
           @success = 'One or more episodes have been added.'
         else
@@ -116,18 +117,19 @@ class Pigro
       end
     else
       data = {
-        :translation => params[:translation] == 'on',
-        :editing     => params[:editing    ] == 'on',
-        :checking    => params[:checking   ] == 'on',
-        :timing      => params[:timing     ] == 'on',
-        :typesetting => params[:typesetting] == 'on',
-        :encoding    => params[:encoding   ] == 'on',
-        :qchecking   => params[:qchecking  ] == 'on',
-        :download    => params[:download   ],
+        :translation    => params[:translation   ] == 'on',
+        :editing        => params[:editing       ] == 'on',
+        :checking       => params[:checking      ] == 'on',
+        :timing         => params[:timing        ] == 'on',
+        :typesetting    => params[:typesetting   ] == 'on',
+        :encoding       => params[:encoding      ] == 'on',
+        :qchecking      => params[:qchecking     ] == 'on',
+        :download       => params[:download      ],
+        :apply_episodes => params[:apply_episodes]
       }
 
       if params[:global] == 'on'
-        episodes = Episode.apply_globally params[:name], data
+        episodes = Episode.apply_globally params[:name], data, params[:apply_episodes]
         if episodes
           @success = 'One or more episodes have been added.'
         else

@@ -48,7 +48,10 @@
     <input type="checkbox" name="qchecking"   data-label="QC"          class="form-control" <%= 'checked' if @episode.qchecking   %>><br>
     
     <input type="url"      name="download"    placeholder="download"     value="<%= @episode.download %>" class="form-control"><br>
-    <input type="checkbox" name="global"      data-label="Appy globally" class="form-control"><br>
+    
+    <input type="checkbox" name="global"         data-label="Appy globally"      class="form-control"                                          >
+    <input type="number"   name="apply_episodes" placeholder="how many episodes" class="form-control" value="<%= Episode.last_episode @name %>">
+    <br>
     
     <%= csrf_tag %>
     <input type="hidden" name="name"    value="<%= @name %>">

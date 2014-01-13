@@ -57,7 +57,8 @@ class Pigro
         :timer        => params[:timer       ],
         :typesetter   => params[:typesetter  ],
         :encoder      => params[:encoder     ],
-        :qchecker     => params[:qchecker    ]
+        :qchecker     => params[:qchecker    ],
+        :status       => params[:status      ].downcase.gsub(/\s+/, '').to_sym
       }
 
       show = Show.add params[:name], data
