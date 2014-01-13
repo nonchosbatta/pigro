@@ -48,7 +48,7 @@ class Episode
     def update_last_episode
       Show.all.each { |show|
         episodes   = show.episodes.all
-        released   = episodes.select { |e|     e.complete? }
+        released   = episodes
         unreleased = episodes.select { |e| not e.complete? }
 
         ep = unreleased.empty? ? released.last : unreleased.first
