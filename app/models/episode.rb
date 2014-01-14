@@ -59,20 +59,20 @@ class Episode
       end
     end
 
-    def add(name, episode, stuff = {})
+    def add(name, episode, stuff = {}, update = true)
       return false if Episode.get_episode name, episode
       show = Show.first name: name
       return false unless show
       show.episodes.create({ episode: episode }.merge(stuff)).tap { |r|
-        Episode.update_last_episode show
+        Episode.update_last_episode(show) if update
       }
     end
 
-    def edit(name, episode, stuff = {})
+    def edit(name, episode, stuff = {}, update = true)
       episode = get_episode name, episode
       return false unless episode
       episode.update({ episode: episode }.merge(stuff)).tap { |r|
-        Episode.update_last_episode episode.show
+        Episode.update_last_episode(episode.show) if update
       }
     end
 
@@ -84,10 +84,11 @@ class Episode
       episodes = episodes > 0 ? episodes : show.tot_episodes
       0.tap { |fails|
         1.upto(episodes) { |episode|
+          last = episode == episodes
           if Episode.exists? name, episode
-            fails += 1 unless Episode.edit name, episode, stuff
+            fails += 1 unless Episode.edit name, episode, stuff, last
           else
-            res = Episode.add name, episode, stuff
+            res = Episode.add name, episode, stuff, last
             fails += 1 if !res || res.errors.empty?
           end
         }
