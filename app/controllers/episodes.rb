@@ -69,7 +69,7 @@ class Pigro
       }
 
       if params[:global] == 'on'
-        episodes = Episode.apply_globally params[:name], data, params[:apply_episodes].to_i
+        episodes = Episode.apply_globally params[:name], data, params[:episode].to_i, params[:apply_episodes].to_i
         if episodes
           @success = 'One or more episodes have been added.'
         else
@@ -127,7 +127,7 @@ class Pigro
       }
 
       if params[:global] == 'on'
-        episodes = Episode.apply_globally params[:name], data, params[:apply_episodes].to_i
+        episodes = Episode.apply_globally params[:name], data, params[:episode].to_i, params[:apply_episodes].to_i
         if episodes
           @success = 'One or more episodes have been added.'
         else

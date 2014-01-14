@@ -76,14 +76,14 @@ class Episode
       }
     end
 
-    def apply_globally(name, stuff = {}, episodes = 0)
+    def apply_globally(name, stuff = {}, from = 1, episodes = 0)
       show = Show.get_show name
       return false unless show
       return true  if show.tot_episodes == 0
 
-      episodes = episodes > 0 ? episodes : show.tot_episodes
+      to = episodes > 0 ? episodes : show.tot_episodes
       0.tap { |fails|
-        1.upto(episodes) { |episode|
+        from.upto(to) { |episode|
           last = episode == episodes
           if Episode.exists? name, episode
             fails += 1 unless Episode.edit name, episode, stuff, last
