@@ -47,15 +47,14 @@
     <input type="checkbox" name="encoding"    data-label="Encoding"    class="form-control" <%= 'checked' if @episode.encoding    %>><br>
     <input type="checkbox" name="qchecking"   data-label="QC"          class="form-control" <%= 'checked' if @episode.qchecking   %>><br>
     
-    <input type="url"      name="download"    placeholder="download"     value="<%= @episode.download %>" class="form-control"><br>
+    <input type="url"      name="download"       placeholder="download"          class="form-control" value="<%= @episode.download %>"><br>
     
-    <input type="checkbox" name="global"         data-label="Apply globally"     class="form-control"                                          >
-    <input type="number"   name="apply_episodes" placeholder="how many episodes" class="form-control" value="<%= Episode.last_episode @name %>">
-    <br>
+    <input type="checkbox" name="global"         data-label="Apply globally"     class="form-control"                                          ><br>
+    <input type="number"   name="apply_episodes" placeholder="from the episode"  class="form-control" value="<%= @episode.show.tot_episodes %>"><br>
     
     <%= csrf_tag %>
-    <input type="hidden" name="name"    value="<%= @name %>">
-    <input type="hidden" name="episode" value="<%= @episode.episode %>">
+    <input  type="hidden" name="name"    value="<%= @name %>">
+    <input  type="hidden" name="episode" value="<%= @episode.episode %>">
     <button class="btn btn-lg btn-primary btn-block" type="submit" name="edit">Edit</button>
   </form>
 <% end %>

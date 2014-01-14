@@ -64,7 +64,7 @@ class Episode
       show = Show.first name: name
       return false unless show
       show.episodes.create({ episode: episode }.merge(stuff)).tap { |r|
-        update_last_episode Episode.get_last_episode(name)
+        Episode.update_last_episode show
       }
     end
 
@@ -72,7 +72,7 @@ class Episode
       episode = get_episode name, episode
       return false unless episode
       episode.update({ episode: episode }.merge(stuff)).tap { |r|
-        update_last_episode episode.show
+        Episode.update_last_episode episode.show
       }
     end
 

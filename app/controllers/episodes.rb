@@ -65,8 +65,7 @@ class Pigro
         :typesetting    => params[:typesetting   ] == 'on',
         :encoding       => params[:encoding      ] == 'on',
         :qchecking      => params[:qchecking     ] == 'on',
-        :download       => params[:download      ],
-        :apply_episodes => params[:apply_episodes]
+        :download       => params[:download      ]
       }
 
       if params[:global] == 'on'
@@ -124,12 +123,11 @@ class Pigro
         :typesetting    => params[:typesetting   ] == 'on',
         :encoding       => params[:encoding      ] == 'on',
         :qchecking      => params[:qchecking     ] == 'on',
-        :download       => params[:download      ],
-        :apply_episodes => params[:apply_episodes]
+        :download       => params[:download      ]
       }
 
       if params[:global] == 'on'
-        episodes = Episode.apply_globally params[:name], data, params[:apply_episodes]
+        episodes = Episode.apply_globally params[:name], data, params[:apply_episodes].to_i
         if episodes
           @success = 'One or more episodes have been added.'
         else
