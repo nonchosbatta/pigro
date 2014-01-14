@@ -26,11 +26,11 @@ Il form si conclude con un menù a cascata che definisce lo stato della serie.
 * *Dropped*: Il fansub della serie, per un motivo o l'altro, è stato interrotto.
 * *Planned*: È prevista una futura sottotitolazione della serie.
 
-Premendo il bottone "Add," la serie verrà aggiunta nel database.
+Premendo il bottone "Add", la serie verrà aggiunta nel database.
 
 Il form presente in "Edit show" si presenta in modo analogo, e permette di modificare lo show selezionato in ogni sua parte.
 
-Altrettanto intuitivo è "Delete show," che permette di eliminare, senza possibilità di recupero, lo show selezionato.
+Altrettanto intuitivo è "Delete show", che permette di eliminare, senza possibilità di recupero, lo show selezionato.
 
 ## Sezione 2: Episode
 
