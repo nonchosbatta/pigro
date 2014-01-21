@@ -15,13 +15,13 @@ class Episode
   property :episode,      Integer, required: true, key: true
   property :last_episode, Boolean, default: false
 
-  property :translation,  Boolean, default: false
-  property :editing,      Boolean, default: false
-  property :checking,     Boolean, default: false
-  property :timing,       Boolean, default: false
-  property :typesetting,  Boolean, default: false
-  property :encoding,     Boolean, default: false
-  property :qchecking,    Boolean, default: false
+  property :translation,  Enum[ :nope, :done, :ongoing ], default: :nope
+  property :editing,      Enum[ :nope, :done, :ongoing ], default: :nope
+  property :checking,     Enum[ :nope, :done, :ongoing ], default: :nope
+  property :timing,       Enum[ :nope, :done, :ongoing ], default: :nope
+  property :typesetting,  Enum[ :nope, :done, :ongoing ], default: :nope
+  property :encoding,     Enum[ :nope, :done, :ongoing ], default: :nope
+  property :qchecking,    Enum[ :nope, :done, :ongoing ], default: :nope
   property :download,     Text
 
   property :created_at,   DateTime
@@ -89,7 +89,7 @@ class Episode
             fails += 1 unless Episode.edit name, episode, stuff, last
           else
             res = Episode.add name, episode, stuff, last
-            fails += 1 if !res || res.errors.empty?
+            fails += 1 unless res || res.errors.any?
           end
         }
       } == 0

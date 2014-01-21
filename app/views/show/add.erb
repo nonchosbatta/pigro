@@ -12,13 +12,10 @@
     <input type="text"   placeholder="name"               name="name"         class="form-control" required autofocus><br>
     <input type="number" placeholder="number of episodes" name="tot_episodes" class="form-control"                   ><br>
     <input type="text"   placeholder="fansub"             name="fansub"       class="form-control"                   ><br>
-    <input type="text"   placeholder="translator"         name="translator"   class="form-control"                   ><br>
-    <input type="text"   placeholder="editor"             name="editor"       class="form-control"                   ><br>
-    <input type="text"   placeholder="checker"            name="checker"      class="form-control"                   ><br>
-    <input type="text"   placeholder="timer"              name="timer"        class="form-control"                   ><br>
-    <input type="text"   placeholder="typesetter"         name="typesetter"   class="form-control"                   ><br>
-    <input type="text"   placeholder="encoder"            name="encoder"      class="form-control"                   ><br>
-    <input type="text"   placeholder="qchecker"           name="qchecker"     class="form-control"                   ><br>
+
+    <% Show.roles.each { |role| %>
+      <input type="text" placeholder="<%= role %>"        name="<%= role %>"  class="form-control"                   ><br>
+    <% } %>
     
     <select name="status" id="status" class="form-control">
       <option value="ongoing"  selected>On going</option>

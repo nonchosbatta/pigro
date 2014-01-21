@@ -36,24 +36,41 @@
   <form action="<%= @current_url %>" method="post" role="form">
     <h2><%= @title %></h2>
 
+    <label class="form-label">Show</label>
     <input type="text"     placeholder="<%= @name            %>"  class="form-control" required autofocus readonly><br>
-    <input type="number"   placeholder="<%= @episode.episode %>"  class="form-control"                    readonly><br>
 
-    <input type="checkbox" name="translation" data-label="Translation" class="form-control" <%= 'checked' if @episode.translation %>><br>
-    <input type="checkbox" name="editing"     data-label="Editing"     class="form-control" <%= 'checked' if @episode.editing     %>><br>
-    <input type="checkbox" name="checking"    data-label="Checking"    class="form-control" <%= 'checked' if @episode.checking    %>><br>
-    <input type="checkbox" name="timing"      data-label="Timing"      class="form-control" <%= 'checked' if @episode.timing      %>><br>
-    <input type="checkbox" name="typesetting" data-label="Typesetting" class="form-control" <%= 'checked' if @episode.typesetting %>><br>
-    <input type="checkbox" name="encoding"    data-label="Encoding"    class="form-control" <%= 'checked' if @episode.encoding    %>><br>
-    <input type="checkbox" name="qchecking"   data-label="QC"          class="form-control" <%= 'checked' if @episode.qchecking   %>><br>
+    <label class="form-label">Episode</label>
+    <input type="number"   placeholder="<%= @episode.episode %>"  class="form-control"                    readonly>
+
+    <% Episode.tasks.each { |task| %>
+      <div class="btn-group" data-toggle="buttons">
+        <label class="radio btn-label form-label"><%= task.to_s.capitalize %></label>
+
+        <label class="btn btn-primary <%= 'active' if @episode.instance_variable_get("@#{task}") == :nope    %>">
+          <input type="radio" name="<%= task %>" class="form-control" value="nope"   > Nope
+        </label>
+
+        <label class="btn btn-primary <%= 'active' if @episode.instance_variable_get("@#{task}") == :ongoing %>">
+          <input type="radio" name="<%= task %>" class="form-control" value="ongoing"> Ongoing
+        </label>
+
+        <label class="btn btn-primary <%= 'active' if @episode.instance_variable_get("@#{task}") == :done    %>">
+          <input type="radio" name="<%= task %>" class="form-control" value="done"   > Done
+        </label>
+
+      </div><br>
+    <% } %><br>
     
+    <label class="form-label">Download URL</label>
     <input type="url"      name="download"       placeholder="download"          class="form-control" value="<%= @episode.download %>"><br>
     
-    <input type="checkbox" name="global"         data-label="Apply globally"     class="form-control"                                          ><br>
+    <input type="checkbox" name="global"         data-label="Apply globally"     class="form-control"                                 ><br>
+
+    <label class="form-label">Apply starting from the episode</label>
     <input type="number"   name="apply_episodes" placeholder="from the episode"  class="form-control" value="<%= @episode.show.tot_episodes %>"><br>
     
     <%= csrf_tag %>
-    <input  type="hidden" name="name"    value="<%= @name %>">
+    <input  type="hidden" name="name"    value="<%= @name %>"           >
     <input  type="hidden" name="episode" value="<%= @episode.episode %>">
     <button class="btn btn-lg btn-primary btn-block" type="submit" name="edit">Edit</button>
   </form>

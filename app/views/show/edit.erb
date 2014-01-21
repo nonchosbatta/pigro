@@ -25,13 +25,10 @@
     <input type="text"   placeholder="<%= @show.name %>"                                                        class="form-control" readonly ><br>
     <input type="number" placeholder="number of episodes" name="tot_episodes" value="<%= @show.tot_episodes %>" class="form-control" autofocus><br>
     <input type="text"   placeholder="fansub"             name="fansub"       value="<%= @show.fansub       %>" class="form-control"          ><br>
-    <input type="text"   placeholder="translator"         name="translator"   value="<%= @show.translator   %>" class="form-control"          ><br>
-    <input type="text"   placeholder="editor"             name="editor"       value="<%= @show.editor       %>" class="form-control"          ><br>
-    <input type="text"   placeholder="checker"            name="checker"      value="<%= @show.checker      %>" class="form-control"          ><br>
-    <input type="text"   placeholder="timer"              name="timer"        value="<%= @show.timer        %>" class="form-control"          ><br>
-    <input type="text"   placeholder="typesetter"         name="typesetter"   value="<%= @show.typesetter   %>" class="form-control"          ><br>
-    <input type="text"   placeholder="encoder"            name="encoder"      value="<%= @show.encoder      %>" class="form-control"          ><br>
-    <input type="text"   placeholder="qchecker"           name="qchecker"     value="<%= @show.qchecker     %>" class="form-control"          ><br>
+
+    <% Show.roles.each { |role| %>
+      <input type="text" placeholder="<%= role %>"        name="<%= role %>"  value="<%= @show.instance_variable_get "@#{role}"  %>" class="form-control"          ><br>
+    <% } %>
     
     <select name="status" id="status" class="form-control">
       <option value="ongoing"  <%= 'selected' if @show.status == :ongoing  %>>On going</option>
