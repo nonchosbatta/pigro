@@ -36,7 +36,7 @@
   <form action="<%= @current_url %>" method="post" role="form">
     <h2><%= @title %></h2>
 
-    <label class="form-label">Show</label>
+    <label class="form-label">Show   </label>
     <input type="text"     placeholder="<%= @name            %>"  class="form-control" required autofocus readonly><br>
 
     <label class="form-label">Episode</label>
@@ -44,14 +44,14 @@
 
     <% Episode.tasks.each { |task| %>
       <div class="btn-group" data-toggle="buttons">
-        <label class="radio btn-label form-label"><%= task.to_s.capitalize %></label>
+        <label class="radio btn-label form-label"><%= task == :qchecking ? 'QChecking' : task.to_s.capitalize %></label>
 
         <label class="btn btn-primary <%= 'active' if @episode.instance_variable_get("@#{task}") == :nope    %>">
           <input type="radio" name="<%= task %>" class="form-control" value="nope"   > Nope
         </label>
 
         <label class="btn btn-primary <%= 'active' if @episode.instance_variable_get("@#{task}") == :ongoing %>">
-          <input type="radio" name="<%= task %>" class="form-control" value="ongoing"> Ongoing
+          <input type="radio" name="<%= task %>" class="form-control" value="ongoing"> On going
         </label>
 
         <label class="btn btn-primary <%= 'active' if @episode.instance_variable_get("@#{task}") == :done    %>">
@@ -61,13 +61,12 @@
       </div><br>
     <% } %><br>
     
-    <label class="form-label">Download URL</label>
+    <label class="form-label">Download URL                   </label>
     <input type="url"      name="download"       placeholder="download"          class="form-control" value="<%= @episode.download %>"><br>
-    
-    <input type="checkbox" name="global"         data-label="Apply globally"     class="form-control"                                 ><br>
 
     <label class="form-label">Apply starting from the episode</label>
     <input type="number"   name="apply_episodes" placeholder="from the episode"  class="form-control" value="<%= @episode.show.tot_episodes %>"><br>
+    <input type="checkbox" name="global"         data-label="Apply globally"     class="form-control"                                          ><br>
     
     <%= csrf_tag %>
     <input  type="hidden" name="name"    value="<%= @name %>"           >
