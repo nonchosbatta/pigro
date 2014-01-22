@@ -65,7 +65,7 @@
     <input type="url"      name="download"       placeholder="download"          class="form-control" value="<%= @episode.download %>"><br>
 
     <label class="form-label">Apply until episode</label>
-    <input type="number"   name="apply_episodes" placeholder="from the episode"  class="form-control" value="<%= @episode.show.tot_episodes %>"><br>
+    <input type="number"   name="apply_episodes" placeholder="apply until episode"  class="form-control" value="<%= @episode.show.tot_episodes %>"><br>
     <input type="checkbox" name="global"         data-label="Apply globally"     class="form-control"                                          ><br>
     
     <%= csrf_tag %>
