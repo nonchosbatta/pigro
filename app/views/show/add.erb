@@ -9,23 +9,27 @@
   <form action="<%= @current_url %>" method="post" role="form">
     <h2><%= @title %></h2>
 
+    <label class="form-label">Show    </label>
     <input type="text"   placeholder="name"               name="name"         class="form-control" required autofocus><br>
+
+    <label class="form-label">Episodes</label>
     <input type="number" placeholder="number of episodes" name="tot_episodes" class="form-control"                   ><br>
+
+    <label class="form-label">Fansub  </label>
     <input type="text"   placeholder="fansub"             name="fansub"       class="form-control"                   ><br>
-    <input type="text"   placeholder="translator"         name="translator"   class="form-control"                   ><br>
-    <input type="text"   placeholder="editor"             name="editor"       class="form-control"                   ><br>
-    <input type="text"   placeholder="checker"            name="checker"      class="form-control"                   ><br>
-    <input type="text"   placeholder="timer"              name="timer"        class="form-control"                   ><br>
-    <input type="text"   placeholder="typesetter"         name="typesetter"   class="form-control"                   ><br>
-    <input type="text"   placeholder="encoder"            name="encoder"      class="form-control"                   ><br>
-    <input type="text"   placeholder="qchecker"           name="qchecker"     class="form-control"                   ><br>
+
+    <% Show.roles.each { |role| %>
+      <label class="btn-label form-label"><%= role == :qchecker ? 'QChecker' : role.to_s.capitalize %></label>
+
+      <input type="text" placeholder="<%= role %>"        name="<%= role %>"  class="form-control"                   ><br>
+    <% } %>
     
     <select name="status" id="status" class="form-control">
       <option value="ongoing"  selected>On going</option>
       <option value="finished"         >Finished</option>
       <option value="dropped"          >Dropped </option>
       <option value="planned"          >Planned </option>
-    </select><br>
+    </select>
 
     <%= csrf_tag %>
     <button class="btn btn-lg btn-primary btn-block" type="submit" name="add">Add</button>

@@ -34,13 +34,13 @@ describe 'Pigro\'s APIs' do
 
     @episode_number = 3
     @episode_data   = {
-      :translation => true,
-      :editing     => false,
-      :typesetting => true,
-      :encoding    => true,
-      :checking    => false,
-      :timing      => false,
-      :qchecking   => false
+      :translation => :ongoing,
+      :editing     => :ongoing,
+      :typesetting => :done,
+      :encoding    => :done,
+      :checking    => :nope,
+      :timing      => :nope,
+      :qchecking   => :nope
     }
   end
 
@@ -137,8 +137,8 @@ describe 'Pigro\'s APIs' do
     json = JSON.parse last_response.body
     json.should_not be_empty
 
-    json.first['episode'].to_i.should eql(@episode_number)
-    json.first['qchecking'].should    eql(@episode_data[:qchecking])
+    json.first['episode'].to_i.should     eql(@episode_number)
+    json.first['qchecking'].to_sym.should eql(@episode_data[:qchecking])
   end
 
 end

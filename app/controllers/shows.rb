@@ -99,8 +99,7 @@ class Pigro
         :status       => params[:status      ].downcase.gsub(/\s+/, '').to_sym
       }
 
-      show = Show.edit params[:name], data
-      if show
+      if Show.edit params[:name], data
         @success = 'The show has been edited.'
       else
         @error   = 'Error editing the show.'
@@ -117,8 +116,7 @@ class Pigro
     elsif not fields? :name
       @error = 'To delete a show, you have to send its name.'
     else
-      delete = Show.remove params[:name]
-      if delete
+      if Show.remove params[:name]
         @success = 'The show has been deleted.'
       else
         @error   = 'Error deleting the show.'

@@ -22,23 +22,27 @@
   <form action="<%= @current_url %>" method="post" role="form">
     <h2><%= @title %></h2>
     
+    <label class="form-label">Show    </label>
     <input type="text"   placeholder="<%= @show.name %>"                                                        class="form-control" readonly ><br>
+
+    <label class="form-label">Episodes</label>
     <input type="number" placeholder="number of episodes" name="tot_episodes" value="<%= @show.tot_episodes %>" class="form-control" autofocus><br>
+
+    <label class="form-label">Fansub  </label>
     <input type="text"   placeholder="fansub"             name="fansub"       value="<%= @show.fansub       %>" class="form-control"          ><br>
-    <input type="text"   placeholder="translator"         name="translator"   value="<%= @show.translator   %>" class="form-control"          ><br>
-    <input type="text"   placeholder="editor"             name="editor"       value="<%= @show.editor       %>" class="form-control"          ><br>
-    <input type="text"   placeholder="checker"            name="checker"      value="<%= @show.checker      %>" class="form-control"          ><br>
-    <input type="text"   placeholder="timer"              name="timer"        value="<%= @show.timer        %>" class="form-control"          ><br>
-    <input type="text"   placeholder="typesetter"         name="typesetter"   value="<%= @show.typesetter   %>" class="form-control"          ><br>
-    <input type="text"   placeholder="encoder"            name="encoder"      value="<%= @show.encoder      %>" class="form-control"          ><br>
-    <input type="text"   placeholder="qchecker"           name="qchecker"     value="<%= @show.qchecker     %>" class="form-control"          ><br>
+
+    <% Show.roles.each { |role| %>
+      <label class="btn-label form-label"><%= role == :qchecker ? 'QChecker' : role.to_s.capitalize %></label>
+
+      <input type="text" placeholder="<%= role %>"        name="<%= role %>"  value="<%= @show.instance_variable_get "@#{role}"  %>" class="form-control"          ><br>
+    <% } %>
     
     <select name="status" id="status" class="form-control">
       <option value="ongoing"  <%= 'selected' if @show.status == :ongoing  %>>On going</option>
       <option value="finished" <%= 'selected' if @show.status == :finished %>>Finished</option>
       <option value="dropped"  <%= 'selected' if @show.status == :dropped  %>>Dropped </option>
       <option value="planned"  <%= 'selected' if @show.status == :planned  %>>Planned </option>
-    </select><br>
+    </select>
 
     <%= csrf_tag %>
     <input type="hidden" name="name" value="<%= @show.name %>">

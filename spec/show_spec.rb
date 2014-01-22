@@ -31,13 +31,13 @@ describe 'Pigro' do
 
     @episode_number = 3
     @episode_data   = {
-      :translation => true,
-      :editing     => false,
-      :typesetting => true,
-      :encoding    => true,
-      :checking    => false,
-      :timing      => false,
-      :qchecking   => false
+      :translation => :ongoing,
+      :editing     => :ongoing,
+      :typesetting => :done,
+      :encoding    => :done,
+      :checking    => :nope,
+      :timing      => :nope,
+      :qchecking   => :nope
     }
   end
 
@@ -69,8 +69,8 @@ describe 'Pigro' do
 
     episode = Episode.get_episode @show_name, @episode_number
     episode.should_not         be_nil
-    episode.translation.should be_true
-    episode.editing.should     be_false
+    episode.translation.should eql(@episode_data[:translation])
+    episode.editing.should     eql(@episode_data[:editing    ])
   end
 
   it 'adds all the episodes to a show' do
@@ -79,22 +79,22 @@ describe 'Pigro' do
 
     episode = Episode.get_episode @show_name, @episode_number + 4
     episode.should_not         be_nil
-    episode.translation.should be_true
-    episode.editing.should     be_false
+    episode.translation.should eql(@episode_data[:translation])
+    episode.editing.should     eql(@episode_data[:editing    ])
   end
 
   it 'edits an episode of a show' do
     data = {
-      :translation => false,
-      :editing     => true
+      :translation => :nope,
+      :editing     => :ongoing
     }
     
     episode = Episode.edit @show_name, @episode_number, data
     episode.should be_true
 
     episode = Episode.get_episode @show_name, @episode_number
-    episode.translation.should be_false
-    episode.editing.should     be_true
+    episode.translation.should eql(data[:translation])
+    episode.editing.should     eql(data[:editing    ])
   end
 
   it 'removes an episode of a show' do

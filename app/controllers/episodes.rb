@@ -58,17 +58,17 @@ class Pigro
       @error = 'To add an episode, you need at least to send its name and what episode it is.'
     else
       data = {
-        :translation    => params[:translation   ] == 'on',
-        :editing        => params[:editing       ] == 'on',
-        :checking       => params[:checking      ] == 'on',
-        :timing         => params[:timing        ] == 'on',
-        :typesetting    => params[:typesetting   ] == 'on',
-        :encoding       => params[:encoding      ] == 'on',
-        :qchecking      => params[:qchecking     ] == 'on',
-        :download       => params[:download      ]
+        :translation => params[:translation] ? params[:translation].to_sym : :nope,
+        :editing     => params[:editing    ] ? params[:editing    ].to_sym : :nope,
+        :checking    => params[:checking   ] ? params[:checking   ].to_sym : :nope,
+        :timing      => params[:timing     ] ? params[:timing     ].to_sym : :nope,
+        :typesetting => params[:typesetting] ? params[:typesetting].to_sym : :nope,
+        :encoding    => params[:encoding   ] ? params[:encoding   ].to_sym : :nope,
+        :qchecking   => params[:qchecking  ] ? params[:qchecking  ].to_sym : :nope,
+        :download    => params[:download   ]
       }
 
-      if params[:global] == 'on'
+      if params[:global] && params[:global].downcase.gsub(/\s+/, '').to_sym
         episodes = Episode.apply_globally params[:name], data, params[:episode].to_i, params[:apply_episodes].to_i
         if episodes
           @success = 'One or more episodes have been added.'
@@ -116,17 +116,17 @@ class Pigro
       end
     else
       data = {
-        :translation    => params[:translation   ] == 'on',
-        :editing        => params[:editing       ] == 'on',
-        :checking       => params[:checking      ] == 'on',
-        :timing         => params[:timing        ] == 'on',
-        :typesetting    => params[:typesetting   ] == 'on',
-        :encoding       => params[:encoding      ] == 'on',
-        :qchecking      => params[:qchecking     ] == 'on',
-        :download       => params[:download      ]
+        :translation => params[:translation] ? params[:translation].to_sym : nil,
+        :editing     => params[:editing    ] ? params[:editing    ].to_sym : nil,
+        :checking    => params[:checking   ] ? params[:checking   ].to_sym : nil,
+        :timing      => params[:timing     ] ? params[:timing     ].to_sym : nil,
+        :typesetting => params[:typesetting] ? params[:typesetting].to_sym : nil,
+        :encoding    => params[:encoding   ] ? params[:encoding   ].to_sym : nil,
+        :qchecking   => params[:qchecking  ] ? params[:qchecking  ].to_sym : nil,
+        :download    => params[:download   ]
       }
 
-      if params[:global] == 'on'
+      if params[:global] && params[:global].downcase.gsub(/\s+/, '').to_sym
         episodes = Episode.apply_globally params[:name], data, params[:episode].to_i, params[:apply_episodes].to_i
         if episodes
           @success = 'One or more episodes have been added.'
@@ -134,8 +134,7 @@ class Pigro
           @error   = 'Error editing one or more episodes.'
         end
       else
-        episode = Episode.edit params[:name], params[:episode].to_i, data
-        if episode
+        if Episode.edit params[:name], params[:episode].to_i, data
           @success = 'The episode has been edited.'
         else
           @error   = 'Error editing the episode'
@@ -163,8 +162,7 @@ class Pigro
     elsif not fields? :episode
       @error  = 'To edit an episode, you need at least to send its name and what episode it is.'
     else
-      episode = Episode.remove params[:name], params[:episode].to_i
-      if episode
+      if Episode.remove params[:name], params[:episode].to_i
         @success = 'The episode has been deleted.'
       else
         @error   = 'Error deleting the episode.'
