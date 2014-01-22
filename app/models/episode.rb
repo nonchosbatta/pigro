@@ -31,7 +31,7 @@ class Episode
 
   def complete?
     Episode.tasks.each { |t|
-      return false unless self.send t
+      return false if self.send(t) != :done
     }
     true
   end
