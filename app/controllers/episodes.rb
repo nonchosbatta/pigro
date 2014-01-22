@@ -58,14 +58,14 @@ class Pigro
       @error = 'To add an episode, you need at least to send its name and what episode it is.'
     else
       data = {
-        :translation    => params[:translation   ].downcase.gsub(/\s+/, '').to_sym,
-        :editing        => params[:editing       ].downcase.gsub(/\s+/, '').to_sym,
-        :checking       => params[:checking      ].downcase.gsub(/\s+/, '').to_sym,
-        :timing         => params[:timing        ].downcase.gsub(/\s+/, '').to_sym,
-        :typesetting    => params[:typesetting   ].downcase.gsub(/\s+/, '').to_sym,
-        :encoding       => params[:encoding      ].downcase.gsub(/\s+/, '').to_sym,
-        :qchecking      => params[:qchecking     ].downcase.gsub(/\s+/, '').to_sym,
-        :download       => params[:download      ]
+        :translation => params[:translation] ? params[:translation].to_sym : :nope,
+        :editing     => params[:editing    ] ? params[:editing    ].to_sym : :nope,
+        :checking    => params[:checking   ] ? params[:checking   ].to_sym : :nope,
+        :timing      => params[:timing     ] ? params[:timing     ].to_sym : :nope,
+        :typesetting => params[:typesetting] ? params[:typesetting].to_sym : :nope,
+        :encoding    => params[:encoding   ] ? params[:encoding   ].to_sym : :nope,
+        :qchecking   => params[:qchecking  ] ? params[:qchecking  ].to_sym : :nope,
+        :download    => params[:download   ]
       }
 
       if params[:global] && params[:global].downcase.gsub(/\s+/, '').to_sym
@@ -116,14 +116,14 @@ class Pigro
       end
     else
       data = {
-        :translation    => params[:translation   ].downcase.gsub(/\s+/, '').to_sym,
-        :editing        => params[:editing       ].downcase.gsub(/\s+/, '').to_sym,
-        :checking       => params[:checking      ].downcase.gsub(/\s+/, '').to_sym,
-        :timing         => params[:timing        ].downcase.gsub(/\s+/, '').to_sym,
-        :typesetting    => params[:typesetting   ].downcase.gsub(/\s+/, '').to_sym,
-        :encoding       => params[:encoding      ].downcase.gsub(/\s+/, '').to_sym,
-        :qchecking      => params[:qchecking     ].downcase.gsub(/\s+/, '').to_sym,
-        :download       => params[:download      ]
+        :translation => params[:translation] ? params[:translation].to_sym : nil,
+        :editing     => params[:editing    ] ? params[:editing    ].to_sym : nil,
+        :checking    => params[:checking   ] ? params[:checking   ].to_sym : nil,
+        :timing      => params[:timing     ] ? params[:timing     ].to_sym : nil,
+        :typesetting => params[:typesetting] ? params[:typesetting].to_sym : nil,
+        :encoding    => params[:encoding   ] ? params[:encoding   ].to_sym : nil,
+        :qchecking   => params[:qchecking  ] ? params[:qchecking  ].to_sym : nil,
+        :download    => params[:download   ]
       }
 
       if params[:global] && params[:global].downcase.gsub(/\s+/, '').to_sym

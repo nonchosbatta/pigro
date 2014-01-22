@@ -13,7 +13,7 @@ class Episode
 
   property :id,           Serial
   property :episode,      Integer, required: true, key: true
-  property :last_episode, Boolean, default: false
+  property :last_episode, Boolean, default:  false
 
   property :translation,  Enum[ :nope, :done, :ongoing ], default: :nope
   property :editing,      Enum[ :nope, :done, :ongoing ], default: :nope
@@ -71,6 +71,8 @@ class Episode
     def edit(name, episode, stuff = {}, update = true)
       episode = get_episode name, episode
       return false unless episode
+      
+      stuff.delete_if { |k, v| v == nil }
       episode.update({ episode: episode }.merge(stuff)).tap { |r|
         Episode.update_last_episode(episode.show) if update
       }
