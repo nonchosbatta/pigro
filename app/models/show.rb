@@ -28,13 +28,11 @@ class Show
   property :created_at,   DateTime
   property :updated_at,   DateTime
 
-  default_scope(:default).update order: [:name.asc]
+  sort_by :name.asc
 
   has n, :episodes, constraint: :destroy
 
-  before :save, :purge
-
-  def purge
+  before :save do
     Show.roles.each { |r|
       instance_variable_set "@#{r}", self.send(r).gsub(?/, ?+)
     }

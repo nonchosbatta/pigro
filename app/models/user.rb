@@ -25,6 +25,8 @@ class User
   property :created_at,       DateTime
   property :updated_at,       DateTime
 
+  sort_by :username.asc
+
   def password=(password)
     salt                 = BCrypt::Engine.generate_salt
     self.salt            = salt

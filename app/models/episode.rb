@@ -27,7 +27,7 @@ class Episode
   property :created_at,   DateTime
   property :updated_at,   DateTime
   
-  default_scope(:default).update order: [:episode.asc]
+  sort_by :episode.asc
 
   belongs_to :show
 
