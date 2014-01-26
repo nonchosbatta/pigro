@@ -137,7 +137,7 @@ class Episode
     end
 
     def last_episodes(status)
-      Episode.all last_episode: true, show: { status: status }
+      Episode.all last_episode: true, show: { status: status }, order: [:show_name.asc]
     end
   end
 end
