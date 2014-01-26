@@ -28,6 +28,8 @@ class Show
   property :created_at,   DateTime
   property :updated_at,   DateTime
 
+  default_scope(:default).update order: [:name.asc]
+
   has n, :episodes, constraint: :destroy
 
   before :save, :purge
