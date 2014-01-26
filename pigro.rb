@@ -11,6 +11,7 @@
 require 'sinatra/base'
 require 'bcrypt'
 require 'data_mapper'
+require 'dm-sorting'
 require 'dm-sqlite-adapter'
 require 'rack/csrf'
 
