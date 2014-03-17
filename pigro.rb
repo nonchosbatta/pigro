@@ -28,7 +28,11 @@ class Pigro < Sinatra::Base
 
     use Rack::Csrf,
       :raise => true,
-      :field => '_csrf'
+      :field => '_csrf',
+      :skip  => [
+        'POST:/api/v1/user/login/?',
+        'GET:/api/v1/user/csrf_token/?' 
+      ]
   }
 
   Dir.glob("#{Dir.pwd}/app/helpers/*.rb")     { |h| require h.chomp }
