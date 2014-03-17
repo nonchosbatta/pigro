@@ -64,4 +64,107 @@ class Pigro
     result = Episode.get_episodes show
     export result
   end
+
+  # return the csrf token
+  get '/api/v1/user/csrf_token/?' do
+    result = {}
+
+    if not logged_in?
+      result[:status ] = :error
+      result[:message] = 'You need to log in.'
+    else
+      result[:status ] = :success
+      result[:message] = csrf_token
+    end
+
+    export result
+  end
+
+  # perform the user login
+  post '/api/v1/user/login/?' do
+    result = {}
+
+    if not fields? :username, :password
+      result[:status ] = :error
+      result[:message] = 'You have to complete all the required fields.'
+    elsif logged_in?
+      result[:status ] = :error
+      result[:message] = 'You are already logged in.'
+    else
+      session = User.login params[:username], params[:password]
+      if session
+        set_login! session
+        result[:status ] = :success
+        result[:message] = 'Login successful.'
+      else
+        result[:status ] = :error
+        result[:message] = 'Login failed.'
+      end
+    end
+
+    export result
+  end
+
+  # perform the user logout
+  post '/api/v1/user/logout/?' do
+    result = {}
+
+    if logged_in?
+      current_user.logout!
+      delete_login!
+      
+      result[:status ] = :success
+      result[:message] = 'Logout successful.'
+    else
+      result[:status ] = :error
+      result[:message] = 'You are not logged in.'
+    end
+
+    export result
+  end
+
+  # edit an episode
+  post '/api/v1/episode/edit/?' do
+    result = {}
+
+    if not logged_in?
+      result[:status ] = :error
+      result[:message] = 'You need to log in.'
+    elsif not current_user.staffer?
+      result[:status ] = :error
+      result[:message] = 'Go home, this is not a place for you.'
+    elsif not fields? :name
+      result[:status ] = :error
+      result[:message] = 'To edit an episode, you need at least to send its name.'
+    elsif not fields? :episode
+      result[:status ] = :error
+      result[:message] = 'To edit an episode, you need at least to send its name and what episode it is.'
+    else
+      unless Episode.get_episode params[:name], params[:episode].to_i
+        result[:status ] = :error
+        result[:message] = 'Show or episode not found.'
+      else
+        data = {
+          :translation => params[:translation] ? params[:translation].to_sym : nil,
+          :editing     => params[:editing    ] ? params[:editing    ].to_sym : nil,
+          :checking    => params[:checking   ] ? params[:checking   ].to_sym : nil,
+          :timing      => params[:timing     ] ? params[:timing     ].to_sym : nil,
+          :typesetting => params[:typesetting] ? params[:typesetting].to_sym : nil,
+          :encoding    => params[:encoding   ] ? params[:encoding   ].to_sym : nil,
+          :qchecking   => params[:qchecking  ] ? params[:qchecking  ].to_sym : nil,
+          :download    => params[:download   ]
+        }
+
+        if Episode.edit params[:name], params[:episode].to_i, data
+          result[:status ] = :success
+          result[:message] = 'The episode has been edited.'
+        else
+          result[:status ] = :error
+          result[:message] = 'Error editing the episode'
+        end
+      end
+    end
+
+    export result
+  end
 end
