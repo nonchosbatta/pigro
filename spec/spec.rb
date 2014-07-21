@@ -30,9 +30,9 @@ class Pigro < Sinatra::Base
       :field => '_csrf'
   }
 
-  Dir.glob('../app/helpers/*.rb')     { |h| require h.chomp }
-  Dir.glob('../app/models/*.rb')      { |m| require m.chomp }
-  Dir.glob('../app/controllers/*.rb') { |c| require c.chomp }
+  %w(helpers models controllers).each do |f|
+    Dir.glob("../app/#{f}/*.rb") { |r| require r.chomp }
+  end
 
   DataMapper.finalize
   DataMapper.auto_upgrade!

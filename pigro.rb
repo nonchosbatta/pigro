@@ -35,9 +35,9 @@ class Pigro < Sinatra::Base
       ]
   }
 
-  Dir.glob("#{Dir.pwd}/app/helpers/*.rb")     { |h| require h.chomp }
-  Dir.glob("#{Dir.pwd}/app/models/*.rb")      { |m| require m.chomp }
-  Dir.glob("#{Dir.pwd}/app/controllers/*.rb") { |c| require c.chomp }
+  %w(controllers helpers models).each do |f|
+    Dir.glob("#{Dir.pwd}/app/#{f}/*.rb") { |f| require r.chomp }
+  end
 
   DataMapper.finalize
   DataMapper.auto_upgrade!
