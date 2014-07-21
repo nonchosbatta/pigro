@@ -63,7 +63,7 @@ describe 'Pigro' do
   end
 
   it 'adds an episode to a show' do
-    episode = Episode.add         @show_name, @episode_number, @episode_data
+    episode = Episode.add @show_name, @episode_number, @episode_data
     episode.should_not    be_false
     episode.errors.should be_empty
 

@@ -30,7 +30,7 @@ describe 'Pigro' do
   end
 
   it 'logs in a user' do
-    User.exists?(@username).should         be_true
+    User.exists?(@username).should          be_true
     User.login(@username, @password).should be_true
 
     user = User.get @username
@@ -49,7 +49,7 @@ describe 'Pigro' do
 
     passcode = User.lost_password @username
     passcode.should_not be_false
-    passcode.should have(29).chars
+    passcode.should     have(29).chars
 
     recovery = User.password_recovery @username, passcode, @new_password
     recovery.should be_true

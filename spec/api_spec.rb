@@ -57,12 +57,12 @@ describe 'Pigro\'s APIs' do
     show.errors.should                      be_empty
     Show.first(name: @show_name).should_not be_nil
     
-    episode = Episode.add         @show_name, @episode_number, @episode_data
+    episode = Episode.add @show_name, @episode_number, @episode_data
     episode.should_not    be_false
     episode.errors.should be_empty
 
     episode = Episode.get_episode @show_name, @episode_number
-    episode.should_not    be_nil
+    episode.should_not be_nil
   end
 
   it 'uses CORS' do
