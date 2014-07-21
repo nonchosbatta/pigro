@@ -10,9 +10,9 @@
     <h2><%= @title %></h2>
 
     <select name="name" class="form-control" data-live-search="true">
-      <% @shows.each { |show| %>
+      <% @shows.each do |show| %>
         <option value="<%= show.name %>"><%= show.name %></option>
-      <% } %>
+      <% end %>
     </select><br>
 
     <%= csrf_tag %>
@@ -22,20 +22,20 @@
   <form action="<%= @current_url %>" method="post" role="form">
     <h2><%= @title %></h2>
     
-    <label class="form-label">Show    </label>
-    <input type="text"   placeholder="<%= @show.name %>"                                                        class="form-control" readonly ><br>
+    <label class="form-label">Show</label>
+    <input type="text" placeholder="<%= @show.name %>" class="form-control" readonly ><br>
 
     <label class="form-label">Episodes</label>
     <input type="number" placeholder="number of episodes" name="tot_episodes" value="<%= @show.tot_episodes %>" class="form-control" autofocus><br>
 
-    <label class="form-label">Fansub  </label>
-    <input type="text"   placeholder="fansub"             name="fansub"       value="<%= @show.fansub       %>" class="form-control"          ><br>
+    <label class="form-label">Fansub</label>
+    <input type="text" placeholder="fansub" name="fansub" value="<%= @show.fansub %>" class="form-control" ><br>
 
-    <% Show.roles.each { |role| %>
+    <% Show.roles.each do |role| %>
       <label class="btn-label form-label"><%= role == :qchecker ? 'QChecker' : role.to_s.capitalize %></label>
 
-      <input type="text" placeholder="<%= role %>"        name="<%= role %>"  value="<%= @show.instance_variable_get "@#{role}"  %>" class="form-control"          ><br>
-    <% } %>
+      <input type="text" placeholder="<%= role %>" name="<%= role %>" value="<%= @show.instance_variable_get "@#{role}" %>" class="form-control"><br>
+    <% end %>
     
     <select name="status" id="status" class="form-control">
       <option value="ongoing"  <%= 'selected' if @show.status == :ongoing  %>>On going</option>

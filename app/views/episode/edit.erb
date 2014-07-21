@@ -10,9 +10,9 @@
     <h2><%= @title %></h2>
   
     <select name="name" class="form-control" data-live-search="true">
-      <% @shows.each { |show| %>
+      <% @shows.each do |show| %>
         <option value="<%= show.name %>"><%= show.name %></option>
-      <% } %>
+      <% end %>
     </select><br>
 
     <%= csrf_tag %>
@@ -23,9 +23,9 @@
     <h2><%= @title %></h2>
   
     <select name="episode" class="form-control" data-live-search="true">
-      <% @episodes.each { |episode| %>
+      <% @episodes.each do |episode| %>
         <option value="<%= episode.episode %>"><%= episode.episode %></option>
-      <% } %>
+      <% end %>
     </select><br>
 
     <%= csrf_tag %>
@@ -36,41 +36,41 @@
   <form action="<%= @current_url %>" method="post" role="form">
     <h2><%= @title %></h2>
 
-    <label class="form-label">Show   </label>
-    <input type="text"     placeholder="<%= @name            %>"  class="form-control" required autofocus readonly><br>
+    <label class="form-label">Show</label>
+    <input type="text" placeholder="<%= @name %>"  class="form-control" required autofocus readonly><br>
 
     <label class="form-label">Episode</label>
-    <input type="number"   placeholder="<%= @episode.episode %>"  class="form-control"                    readonly>
+    <input type="number" placeholder="<%= @episode.episode %>" class="form-control" readonly>
 
-    <% Episode.tasks.each { |task| %>
+    <% Episode.tasks.each do |task| %>
       <div class="btn-group" data-toggle="buttons">
         <label class="radio btn-label form-label"><%= task == :qchecking ? 'QChecking' : task.to_s.capitalize %></label>
 
-        <label class="btn btn-primary <%= 'active' if @episode.instance_variable_get("@#{task}") == :nope    %>">
-          <input type="radio" name="<%= task %>" class="form-control" value="nope"   > Nope
+        <label class="btn btn-primary <%= 'active' if @episode.instance_variable_get("@#{task}") == :nope %>">
+          <input type="radio" name="<%= task %>" class="form-control" value="nope"> Nope
         </label>
 
         <label class="btn btn-primary <%= 'active' if @episode.instance_variable_get("@#{task}") == :ongoing %>">
           <input type="radio" name="<%= task %>" class="form-control" value="ongoing"> On going
         </label>
 
-        <label class="btn btn-primary <%= 'active' if @episode.instance_variable_get("@#{task}") == :done    %>">
-          <input type="radio" name="<%= task %>" class="form-control" value="done"   > Done
+        <label class="btn btn-primary <%= 'active' if @episode.instance_variable_get("@#{task}") == :done %>">
+          <input type="radio" name="<%= task %>" class="form-control" value="done"> Done
         </label>
 
       </div><br>
-    <% } %><br>
+    <% end %><br>
     
-    <label class="form-label">Download URL                   </label>
-    <input type="url"      name="download"       placeholder="download"          class="form-control" value="<%= @episode.download %>"><br>
+    <label class="form-label">Download URL</label>
+    <input type="url" name="download" placeholder="download" class="form-control" value="<%= @episode.download %>"><br>
 
     <label class="form-label">Apply until episode</label>
-    <input type="number"   name="apply_episodes" placeholder="apply until episode"  class="form-control" value="<%= @episode.show.tot_episodes %>"><br>
-    <input type="checkbox" name="global"         data-label="Apply globally"        class="form-control"                                          ><br>
+    <input type="number" name="apply_episodes" placeholder="apply until episode" class="form-control" value="<%= @episode.show.tot_episodes %>"><br>
+    <input type="checkbox" name="global" data-label="Apply globally" class="form-control"><br>
     
     <%= csrf_tag %>
-    <input  type="hidden" name="name"    value="<%= @name %>"           >
-    <input  type="hidden" name="episode" value="<%= @episode.episode %>">
+    <input type="hidden" name="name" value="<%= @name %>">
+    <input type="hidden" name="episode" value="<%= @episode.episode %>">
     <button class="btn btn-lg btn-primary btn-block" type="submit" name="edit">Edit</button>
   </form>
 <% end %>

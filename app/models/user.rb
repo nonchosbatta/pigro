@@ -176,6 +176,7 @@ class User
       })
       return false unless user
       return false if     user.lost_password.empty?
+
       user.update({
         :lost_password => '',
         :password      => password
@@ -185,6 +186,7 @@ class User
     def change_level(username, permission_level)
       user = User.first username: username
       return false unless user
+      
       user.update permission_level: permission_level
     end
   end

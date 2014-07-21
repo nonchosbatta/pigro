@@ -61,11 +61,13 @@ class Episode
 
     def add(name, episode, stuff = {}, update = true)
       return false if Episode.get_episode name, episode
+
       show = Show.first name: name
       return false unless show
-      show.episodes.create({ episode: episode }.merge(stuff)).tap { |r|
+
+      show.episodes.create({ episode: episode }.merge(stuff)).tap do |r|
         Episode.update_last_episode(show) if update
-      }
+      end
     end
 
     def edit(name, episode, stuff = {}, update = true)
@@ -73,9 +75,9 @@ class Episode
       return false unless episode
       
       stuff.delete_if { |k, v| v == nil }
-      episode.update({ episode: episode }.merge(stuff)).tap { |r|
+      episode.update({ episode: episode }.merge(stuff)).tap do |r|
         Episode.update_last_episode(episode.show) if update
-      }
+      end
     end
 
     def apply_globally(name, stuff = {}, from = 1, episodes = 0)
@@ -84,22 +86,24 @@ class Episode
       return true  if show.tot_episodes == 0
 
       to = episodes > 0 ? episodes : show.tot_episodes
-      0.tap { |fails|
-        from.upto(to) { |episode|
+      0 == 0.tap do |fails|
+        from.upto(to) do |episode|
           last = episode == episodes
+
           if Episode.exists? name, episode
             fails += 1 unless Episode.edit name, episode, stuff, last
           else
             res = Episode.add name, episode, stuff, last
             fails += 1 unless res || res.errors.any?
           end
-        }
-      } == 0
+        end
+      end
     end
 
     def remove(name, episode, stuff = {})
       episode = Episode.get_episode name, episode, stuff
-      return false unless episode      
+      return false unless episode
+      
       episode.destroy
     end
 

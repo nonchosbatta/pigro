@@ -10,9 +10,9 @@
     <h2><%= @title %></h2>
 
     <select name="name" class="form-control" data-live-search="true">
-      <% @shows.each { |show| %>
+      <% @shows.each do |show| %>
         <option value="<%= show.name %>"><%= show.name %></option>
-      <% } %>
+      <% end %>
     </select><br>
     
     <%= csrf_tag %>
