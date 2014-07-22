@@ -29,10 +29,12 @@
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
 
-            <li class="active"><a href="#">Home</a></li>
+            <li class="<%= current_menu?('show', 'episode', 'user') ? '' : 'active' %>">
+              <a href="/">Home</a>
+            </li>
 
             <% if staffer? %>
-              <li class="dropdown">
+              <li class="dropdown <%= current_menu?('show') ? 'active' : '' %>">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Show <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                   <li><a href="/show/add">Add</a></li>
@@ -41,7 +43,7 @@
                 </ul>
               </li>
 
-              <li class="dropdown">
+              <li class="dropdown <%= current_menu?('episode') ? 'active' : '' %>">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Episode <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                   <li><a href="/episode/add">Add</a></li>
@@ -54,7 +56,7 @@
           </ul>
           <ul class="nav navbar-nav navbar-right">
 
-            <li class="dropdown">
+          <li class="dropdown <%= current_menu?('user') ? 'active' : '' %>">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">User <b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <% unless logged_in? %>

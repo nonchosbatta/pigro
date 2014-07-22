@@ -39,5 +39,12 @@ class Pigro
         res
       end
     end
+
+    def current_menu?(*menu)
+      return false unless @title
+
+      menu.each { |e| return true if @title.include?(e) }
+      false
+    end
   end
 end
