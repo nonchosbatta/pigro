@@ -1,15 +1,11 @@
 #! /usr/bin/env ruby
 require 'rake'
 
-task :default => [ :test, :run ]
+task default: [ :test, :run ]
 
 task :test do
   File.delete 'db/spec.db' if File.exists? 'db/spec.db'
-  FileUtils.cd 'spec' do
-    sh 'rspec user_spec.rb --backtrace --color --format doc'
-    sh 'rspec show_spec.rb --backtrace --color --format doc'
-    sh 'rspec api_spec.rb  --backtrace --color --format doc'
-  end
+  %w(user_spec show_spec api_spec).each { |spec| sh "rspec spec/#{spec}.rb" }
   File.delete 'db/spec.db' if File.exists? 'db/spec.db'
 end
 

@@ -1,10 +1,3 @@
-ENV['RACK_ENV'] = 'test'
-
-require './spec'
-require 'rspec'
-require 'rack/test'
-require 'json'
-
 describe 'Pigro\'s APIs' do
   include Rack::Test::Methods
 
@@ -48,17 +41,17 @@ describe 'Pigro\'s APIs' do
     unless User.exists? @username
       user = User.signup @username, @email, @password, @level
       user.errors.should be_empty
-      user.admin?.should be_true
+      user.admin?.should be_truthy
     end
 
-    User.login(@username, @password).should be_true
+    User.login(@username, @password).should be_truthy
 
     show = Show.add @show_name, @show_data
     show.errors.should                      be_empty
     Show.first(name: @show_name).should_not be_nil
     
     episode = Episode.add         @show_name, @episode_number, @episode_data
-    episode.should_not    be_false
+    episode.should_not    be_falsy
     episode.errors.should be_empty
 
     episode = Episode.get_episode @show_name, @episode_number

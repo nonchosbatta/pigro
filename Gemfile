@@ -11,4 +11,5 @@ gem 'rack_csrf'
 # spec
 gem 'rack-test'
 gem 'rspec'
+gem 'rspec-collection_matchers'
 gem 'json'

@@ -1,9 +1,3 @@
-ENV['RACK_ENV'] = 'test'
-
-require './spec'
-require 'rspec'
-require 'rack/test'
-
 describe 'Pigro' do
   def app
     Sinatra::Application
@@ -44,8 +38,8 @@ describe 'Pigro' do
   it 'creates a show' do
     user = User.signup @username, @email, @password, @level
     user.errors.should                      be_empty
-    user.admin?.should                      be_true
-    User.login(@username, @password).should be_true
+    user.admin?.should                      be_truthy
+    User.login(@username, @password).should be_truthy
 
     show = Show.add @show_name, @show_data
     show.errors.should                      be_empty
@@ -57,14 +51,14 @@ describe 'Pigro' do
     checker = Show.get_show(@show_name).checker
 
     show    = Show.edit @show_name, data
-    show.should be_true
+    show.should be_truthy
 
     Show.get_show(@show_name).checker.should_not be(checker)
   end
 
   it 'adds an episode to a show' do
     episode = Episode.add @show_name, @episode_number, @episode_data
-    episode.should_not    be_false
+    episode.should_not    be_falsy
     episode.errors.should be_empty
 
     episode = Episode.get_episode @show_name, @episode_number
@@ -75,7 +69,7 @@ describe 'Pigro' do
 
   it 'adds all the episodes to a show' do
     episode = Episode.apply_globally @show_name, @episode_data
-    episode.should_not be_false
+    episode.should_not be_falsy
 
     episode = Episode.get_episode @show_name, @episode_number + 4
     episode.should_not         be_nil
@@ -90,7 +84,7 @@ describe 'Pigro' do
     }
     
     episode = Episode.edit @show_name, @episode_number, data
-    episode.should be_true
+    episode.should be_truthy
 
     episode = Episode.get_episode @show_name, @episode_number
     episode.translation.should eql(data[:translation])
@@ -99,14 +93,14 @@ describe 'Pigro' do
 
   it 'removes an episode of a show' do
     episode = Episode.remove @show_name, @episode_number
-    episode.should                                          be_true
+    episode.should                                          be_truthy
     Episode.get_episode(@show_name, @episode_number).should be_nil
     Show.get_show(@show_name).should_not                    be_nil
   end
 
   it 'removes a show' do
     show = Show.remove @show_name
-    show.should                      be_true
+    show.should                      be_truthy
     Show.get_show(@show_name).should be_nil
   end
 end

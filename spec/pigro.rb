@@ -16,7 +16,7 @@ require 'dm-sqlite-adapter'
 require 'rack/csrf'
 
 class Pigro < Sinatra::Base
-  db_path = File.join Dir.pwd, '../', 'db'
+  db_path = File.join Dir.pwd, 'db'
   Dir.mkdir db_path unless Dir.exists? db_path
   DataMapper.setup :default, "sqlite3://#{db_path}/spec.db"
 
@@ -31,7 +31,7 @@ class Pigro < Sinatra::Base
   }
 
   %w(helpers models controllers).each do |f|
-    Dir.glob("../app/#{f}/*.rb") { |r| require r.chomp }
+    Dir.glob("#{Dir.pwd}/app/#{f}/*.rb") { |r| require r.chomp }
   end
 
   DataMapper.finalize

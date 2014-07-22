@@ -17,8 +17,10 @@ require 'rack/csrf'
 
 class Pigro < Sinatra::Base
   db_path = File.join Dir.pwd, 'db'
+  db_name = ENV['RACK_ENV'] == 'test' ? 'spec' : 'app'
+
   Dir.mkdir db_path unless Dir.exists? db_path
-  DataMapper.setup :default, "sqlite3://#{db_path}/app.db"
+  DataMapper.setup :default, "sqlite3://#{db_path}/#{db_name}.db"
 
   set :views, ['app/views']
   configure {
@@ -36,7 +38,7 @@ class Pigro < Sinatra::Base
   }
 
   %w(controllers helpers models).each do |f|
-    Dir.glob("#{Dir.pwd}/app/#{f}/*.rb") { |f| require r.chomp }
+    Dir.glob("#{Dir.pwd}/app/#{f}/*.rb") { |r| require r.chomp }
   end
 
   DataMapper.finalize
