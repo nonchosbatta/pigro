@@ -40,6 +40,7 @@ describe 'Pigro' do
   it 'logs out a user' do
     user = User.get @username
     user.session.should have(29).chars
+    
     user.logout
     user.session.should be_empty
   end
@@ -61,9 +62,9 @@ describe 'Pigro' do
     User.login(@username, @new_password).should be_true
     
     user = User.get @username
-    user.founder?
+    user.founder?.should be_true
 
     user.change_level User.banned
-    user.banned?
+    user.banned?.should be_true
   end
 end

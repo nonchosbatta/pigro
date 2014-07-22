@@ -57,7 +57,7 @@ describe 'Pigro\'s APIs' do
     show.errors.should                      be_empty
     Show.first(name: @show_name).should_not be_nil
     
-    episode = Episode.add @show_name, @episode_number, @episode_data
+    episode = Episode.add         @show_name, @episode_number, @episode_data
     episode.should_not    be_false
     episode.errors.should be_empty
 
@@ -140,5 +140,4 @@ describe 'Pigro\'s APIs' do
     json.first['episode'].to_i.should     eql(@episode_number)
     json.first['qchecking'].to_sym.should eql(@episode_data[:qchecking])
   end
-
 end

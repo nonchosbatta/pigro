@@ -109,5 +109,4 @@ describe 'Pigro' do
     show.should                      be_true
     Show.get_show(@show_name).should be_nil
   end
-
 end
