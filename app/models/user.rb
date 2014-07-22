@@ -11,9 +11,10 @@
 class User
   include DataMapper::Resource
 
-  property :id,       Serial
-  property :username, String, unique: true,  length: 4..16, format: /^[\w_\s\-\*]*$/, key: true
-  property :email,    String, unique: true,                 format: :email_address
+  property :id,        Serial
+  property :username,  String, unique: true,  length: 4..16, format: /^[\w_\s\-\*]*$/, key: true
+  property :email,     String, unique: true,                 format: :email_address
+  property :favorites, Object, default: []
 
   property :permission_level, Integer, default: 4
 

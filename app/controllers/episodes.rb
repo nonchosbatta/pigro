@@ -50,7 +50,16 @@ class Pigro
     elsif fields? :name, :go
       show   = Show.get_show params[:name]
       if show
-        @show  = show
+        @show = show
+
+        favorites = current_user.favorites
+        if params[:favorite]
+          favorites << show
+        else
+          favorites.delete_if { |s| s == show }
+        end
+
+        current_user.update(favorites: favorites)
       else
         @error = 'Show not found.'
       end
@@ -101,8 +110,18 @@ class Pigro
       if episodes
         @episodes = episodes
         @name     = params[:name]
+
+        show      = Show.get_show params[:name]
+        favorites = current_user.favorites
+        if params[:favorite]
+          favorites << show
+        else
+          favorites.delete_if { |s| s == show }
+        end
+
+        current_user.update(favorites: favorites)
       else
-        @error    = 'Episode not found.'
+        @error = 'Episode not found.'
       end
     elsif not fields? :episode
       @error  = 'To edit an episode, you need at least to send its name and what episode it is.'

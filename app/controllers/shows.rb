@@ -116,7 +116,12 @@ class Pigro
     elsif not fields? :name
       @error = 'To delete a show, you have to send its name.'
     else
+      show = Show.get_show params[:name]
+
       if Show.remove params[:name]
+        favorites = current_user.favorites.delete_if { |s| s == show }
+        current_user.update(favorites: favorites)
+
         @success = 'The show has been deleted.'
       else
         @error   = 'Error deleting the show.'
