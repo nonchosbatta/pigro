@@ -69,3 +69,17 @@ form .form-control[type="password"] {
 label.btn {
   width: 100px;
 }
+
+.episode.add  .bootstrap-select.form-control:not([class*="span"]),
+.episode.edit .bootstrap-select.form-control:not([class*="span"]) {
+  float: left;
+  width: 70%;
+  margin-right: 5%;
+}
+
+.btn-inline {
+  float: left;
+  width: 25%;
+  margin-top: -3px;
+  margin-bottom: 5px;
+}

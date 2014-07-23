@@ -47,19 +47,23 @@ class Pigro
       @error = 'You need to log in.'
     elsif not current_user.staffer?
       @error = 'Go home, this is not a place for you.'
+    elsif fields? :favorite
+      show      = Show.get_show params[:name]
+      favorites = current_user.favorites
+
+      if favorites.include? show
+        favorites.delete_if { |s| s == show }
+        @success = 'The show has been removed from your favorites.'
+      else
+        favorites << show
+        @success = 'The show has been added to your favorites.'
+      end
+
+      current_user.update(favorites: favorites)
     elsif fields? :name, :go
-      show   = Show.get_show params[:name]
+      show = Show.get_show params[:name]
       if show
         @show = show
-
-        favorites = current_user.favorites
-        if params[:favorite]
-          favorites << show
-        else
-          favorites.delete_if { |s| s == show }
-        end
-
-        current_user.update(favorites: favorites)
       else
         @error = 'Show not found.'
       end
@@ -105,21 +109,24 @@ class Pigro
       @error = 'Go home, this is not a place for you.'
     elsif not fields? :name
       @error = 'To edit an episode, you need at least to send its name.'
+    elsif fields? :favorite
+      show      = Show.get_show params[:name]
+      favorites = current_user.favorites
+
+      if favorites.include? show
+        favorites.delete_if { |s| s == show }
+        @success = 'The show has been removed from your favorites.'
+      else
+        favorites << show
+        @success = 'The show has been added to your favorites.'
+      end
+
+      current_user.update(favorites: favorites)
     elsif fields? :go
       episodes = Episode.get_episodes params[:name]
       if episodes
         @episodes = episodes
         @name     = params[:name]
-
-        show      = Show.get_show params[:name]
-        favorites = current_user.favorites
-        if params[:favorite]
-          favorites << show
-        else
-          favorites.delete_if { |s| s == show }
-        end
-
-        current_user.update(favorites: favorites)
       else
         @error = 'Episode not found.'
       end

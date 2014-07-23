@@ -152,6 +152,7 @@ class Pigro
           :typesetting => params[:typesetting] ? params[:typesetting].to_sym : nil,
           :encoding    => params[:encoding   ] ? params[:encoding   ].to_sym : nil,
           :qchecking   => params[:qchecking  ] ? params[:qchecking  ].to_sym : nil,
+          :airing      => params[:airing     ] ? params[:airing     ] == 'true' : nil,
           :download    => params[:download   ]
         }
 

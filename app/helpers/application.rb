@@ -46,5 +46,9 @@ class Pigro
       menu.each { |e| return true if @title.include?(e) }
       false
     end
+
+    def current_action
+      request.env['REQUEST_URI'].split(?/).join(' ').strip
+    end
   end
 end

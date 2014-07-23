@@ -10,11 +10,11 @@
     <h2><%= @title %></h2>
   
     <select name="name" class="form-control" data-live-search="true">
-      <% current_user.favorites.each do |show| %>
-        <option value="<%= show.name %>"><%= show.name %></option>
-      <% end %>
-
       <% if current_user.favorites.any? %>
+        <% current_user.favorites.each do |show| %>
+          <option value="<%= show.name %>"><%= show.name %></option>
+        <% end %>
+
         <option>------</option>
       <% end %>
 
@@ -23,10 +23,8 @@
       <% end %>
     </select><br>
 
-    <label class="form-label"></label>
-    <input type="checkbox" name="favorite" data-label="Favorite" class="form-control"><br>
-
     <%= csrf_tag %>
+    <button class="btn btn-lg btn-primary btn-inline" type="submit" name="favorite">Favorite</button>
     <button class="btn btn-lg btn-primary btn-block" type="submit" name="go">Edit</button>
   </form>
 <% elsif defined? @episodes %>
