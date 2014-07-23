@@ -58,7 +58,8 @@ class Pigro
         :typesetter   => params[:typesetter  ],
         :encoder      => params[:encoder     ],
         :qchecker     => params[:qchecker    ],
-        :status       => params[:status      ].downcase.gsub(/\s+/, '').to_sym
+        :status       => params[:status      ].downcase.gsub(/\s+/, '').to_sym,
+        :airing       => params[:airing      ] == 'on'
       }
 
       show = Show.add params[:name], data
@@ -96,7 +97,8 @@ class Pigro
         :typesetter   => params[:typesetter  ],
         :encoder      => params[:encoder     ],
         :qchecker     => params[:qchecker    ],
-        :status       => params[:status      ].downcase.gsub(/\s+/, '').to_sym
+        :status       => params[:status      ].downcase.gsub(/\s+/, '').to_sym,
+        :airing       => params[:airing      ] == 'on'
       }
 
       if Show.edit params[:name], data

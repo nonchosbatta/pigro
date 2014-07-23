@@ -15,6 +15,7 @@ class Show
   property :name,         String,  unique: true, required: true, key: true
   property :tot_episodes, Integer, default: 13,  min: 0
   property :status,       Enum[ :ongoing, :finished, :dropped, :planned ], default: :ongoing
+  property :airing,       Boolean, default: true
   property :fansub,       String
 
   property :translator,   String
@@ -33,9 +34,9 @@ class Show
   has n, :episodes, constraint: :destroy
 
   before :save do
-    Show.roles.each { |r|
+    Show.roles.each do |r|
       instance_variable_set "@#{r}", self.send(r).gsub(?/, ?+)
-    }
+    end
   end
 
   def count_episodes
@@ -58,12 +59,14 @@ class Show
     def edit(name, stuff = {})
       show = Show.first name: name
       return false unless show
+
       show.update stuff
     end
 
     def remove(name)
       show = Show.first name: name
       return false unless show
+      
       show.destroy
     end
 

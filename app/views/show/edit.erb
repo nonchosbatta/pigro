@@ -44,6 +44,9 @@
       <option value="planned"  <%= 'selected' if @show.status == :planned  %>>Planned </option>
     </select>
 
+    <label class="form-label"></label>
+    <input type="checkbox" name="airing" data-label="Airing" class="form-control" <%= 'checked' if @show.airing? %>><br>
+
     <%= csrf_tag %>
     <input type="hidden" name="name" value="<%= @show.name %>">
     <button class="btn btn-lg btn-primary btn-block" type="submit" name="edit">Edit</button>
