@@ -26,6 +26,8 @@ Il form si conclude con un menù a cascata che definisce lo stato della serie.
 * *Dropped*: Il fansub della serie, per un motivo o l'altro, è stato interrotto.
 * *Planned*: È prevista una futura sottotitolazione della serie.
 
+Vi è inoltre una checkbox *Airing*, che dev'essere spuntata nel caso che la serie sia attualmente in trasmessione nelle TV giapponesi.
+
 Premendo il bottone "Add", la serie verrà aggiunta nel database.
 
 Il form presente in "Edit show" si presenta in modo analogo, e permette di modificare lo show selezionato in ogni sua parte.
@@ -56,3 +58,5 @@ Un esempio pratico è il seguente: sono pronti tutti gli episodi dal numero 4 al
 Ci si ritroverà quindi a creare successivamente l'episodio numero 11.
 
 In egual modo è possibile sia cancellare sia apportare modifiche agli episodi in blocco utilizzando le relative funzioni presenti in "Edit episode" e "Delete episode."
+
+Nelle pagine "Add episode" e "Edit episode" è inoltre possibile aggiungere (o rimuovere) delle serie tra le favorite, il che permette di farle apparire prima di tutte le altre all'interno delle selectbox delle suddette pagine. 
