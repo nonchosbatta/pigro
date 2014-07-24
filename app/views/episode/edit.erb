@@ -21,10 +21,10 @@
       <% (@shows.map(&:name) - current_user.favorites.map(&:name)).each do |show_name| %>
         <option value="<%= show_name %>"><%= show_name %></option>
       <% end %>
-    </select><br>
+    </select>
 
     <%= csrf_tag %>
-    <button class="btn btn-lg btn-primary btn-inline" type="submit" name="favorite">Favorite</button>
+    <button class="btn btn-sm btn-primary btn-inline" type="submit" name="favorite">Favorite</button>
     <button class="btn btn-lg btn-primary btn-block" type="submit" name="go">Edit</button>
   </form>
 <% elsif defined? @episodes %>

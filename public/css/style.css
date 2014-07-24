@@ -73,13 +73,13 @@ label.btn {
 .episode.add  .bootstrap-select.form-control:not([class*="span"]),
 .episode.edit .bootstrap-select.form-control:not([class*="span"]) {
   float: left;
-  width: 70%;
-  margin-right: 5%;
+  width: 73%;
+  margin-right: 5px;
 }
 
 .btn-inline {
   float: left;
   width: 25%;
-  margin-top: -3px;
+  margin-top: 3px;
   margin-bottom: 5px;
 }
