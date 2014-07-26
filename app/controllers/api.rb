@@ -144,16 +144,26 @@ class Pigro
         result[:status ] = :error
         result[:message] = 'Show or episode not found.'
       else
+        inputs = params.dup
+        inputs[:translator] ||= inputs[:translation]
+        inputs[:editor    ] ||= inputs[:editing    ]
+        inputs[:checker   ] ||= inputs[:checking   ]
+        inputs[:timer     ] ||= inputs[:timing     ]
+        inputs[:typesetter] ||= inputs[:typesetting]
+        inputs[:encoder   ] ||= inputs[:encoding   ]
+        inputs[:qchecker  ] ||= inputs[:qchecking  ]
+        inputs[:qc        ] ||= inputs[:qchecking  ]
+
         data = {
-          :translation => params[:translation] ? params[:translation].to_sym : nil,
-          :editing     => params[:editing    ] ? params[:editing    ].to_sym : nil,
-          :checking    => params[:checking   ] ? params[:checking   ].to_sym : nil,
-          :timing      => params[:timing     ] ? params[:timing     ].to_sym : nil,
-          :typesetting => params[:typesetting] ? params[:typesetting].to_sym : nil,
-          :encoding    => params[:encoding   ] ? params[:encoding   ].to_sym : nil,
-          :qchecking   => params[:qchecking  ] ? params[:qchecking  ].to_sym : nil,
-          :airing      => params[:airing     ] ? params[:airing     ] == 'true' : nil,
-          :download    => params[:download   ]
+          :translation => inputs[:translation] ? inputs[:translation].to_sym : nil,
+          :editing     => inputs[:editing    ] ? inputs[:editing    ].to_sym : nil,
+          :checking    => inputs[:checking   ] ? inputs[:checking   ].to_sym : nil,
+          :timing      => inputs[:timing     ] ? inputs[:timing     ].to_sym : nil,
+          :typesetting => inputs[:typesetting] ? inputs[:typesetting].to_sym : nil,
+          :encoding    => inputs[:encoding   ] ? inputs[:encoding   ].to_sym : nil,
+          :qchecking   => inputs[:qchecking  ] ? inputs[:qchecking  ].to_sym : nil,
+          :airing      => inputs[:airing     ] ? inputs[:airing     ] == 'true' : nil,
+          :download    => inputs[:download   ]
         }
 
         if Episode.edit params[:name], params[:episode].to_i, data
