@@ -13,6 +13,27 @@ class Pigro
     cross_origin
   end
 
+  # returns the fansubs having more episodes done
+  get '/api/v1/stats/addicted' do
+    stats = {}.tap do |addicted|
+      Show.get_fansubs.each do |fansub|
+        addicted[fansub] = { shows: [] }
+        shows = Show.all :fansub.like => "%#{fansub}%"
+
+        shows.each do |show|
+          episodes_count = show.episodes.count { |episode| episode.translation == :done }
+          addicted[fansub][:shows] << { show_name: show.name, episodes_finished_count: episodes_count }
+        end
+
+        addicted[fansub][:shows].sort! do |a, b|
+          a[:episodes_finished_count] <=> -b[:episodes_finished_count]
+        end
+      end
+    end
+
+    export stats
+  end
+
   # return all the shows having the given status
   get '/api/v1/shows/all/:status/?' do |status|
     result = Show.all status: status.downcase.to_sym

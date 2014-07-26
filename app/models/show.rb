@@ -77,5 +77,9 @@ class Show
     def find_shows(keyword)
       Show.all :name.like => "%#{keyword}%"
     end
+
+    def get_fansubs
+      Show.all.map { |s| s.fansub.split(?+).map(&:strip) }.flatten.uniq
+    end
   end
 end
