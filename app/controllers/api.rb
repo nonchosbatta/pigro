@@ -13,34 +13,6 @@ class Pigro
     cross_origin
   end
 
-  # returns the fansubs having more episodes done
-  get '/api/v1/stats/addicted' do
-    stats = [].tap do |addicted|
-      Show.get_fansubs.each do |fansub|
-        shows = Show.all :fansub.like => "%#{fansub}%"
-
-        series_done = []
-        shows.each { |show| series_done << show if show.done? }
-
-        episodes_done_count = 0
-        shows.each { |show| episodes_done_count += show.episodes.count(&:done?) }
-
-        addicted << {
-          fansub: fansub,
-          series_done: series_done.map(&:name),
-          series_done_count: series_done.count,
-          episodes_done_count: episodes_done_count
-        }
-
-        addicted.sort! do |a, b|
-          -a[:episodes_done_count] <=> b[:episodes_done_count]
-        end
-      end
-    end
-
-    export stats
-  end
-
   # return all the shows having the given status
   get '/api/v1/shows/all/:status/?' do |status|
     result = Show.all status: status.downcase.to_sym
@@ -91,6 +63,34 @@ class Pigro
   get '/api/v1/episodes/:show/?' do |show|
     result = Episode.get_episodes show
     export result
+  end
+
+  # returns fansubs stats
+  get '/api/v1/stats' do
+    stats = [].tap do |addicted|
+      Show.get_fansubs.each do |fansub|
+        shows = Show.all :fansub.like => "%#{fansub}%"
+
+        series_done = []
+        shows.each { |show| series_done << show if show.done? }
+
+        episodes_done_count = 0
+        shows.each { |show| episodes_done_count += show.episodes.count(&:done?) }
+
+        addicted << {
+          fansub: fansub,
+          series_done: series_done.map(&:name),
+          series_done_count: series_done.count,
+          episodes_done_count: episodes_done_count
+        }
+
+        addicted.sort! do |a, b|
+          -a[:episodes_done_count] <=> b[:episodes_done_count]
+        end
+      end
+    end
+
+    export stats
   end
 
   # return the csrf token
