@@ -35,6 +35,7 @@ class Episode
     Episode.tasks.each { |t| return false if self.send(t) != :done }
     true
   end
+    alias_method :done?, :complete?
 
   class << self
     def tasks

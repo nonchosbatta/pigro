@@ -15,18 +15,25 @@ class Pigro
 
   # returns the fansubs having more episodes done
   get '/api/v1/stats/addicted' do
-    stats = {}.tap do |addicted|
+    stats = [].tap do |addicted|
       Show.get_fansubs.each do |fansub|
-        addicted[fansub] = { shows: [] }
         shows = Show.all :fansub.like => "%#{fansub}%"
 
-        shows.each do |show|
-          episodes_count = show.episodes.count { |episode| episode.translation == :done }
-          addicted[fansub][:shows] << { show_name: show.name, episodes_finished_count: episodes_count }
-        end
+        series_done = []
+        shows.each { |show| series_done << show if show.done? }
 
-        addicted[fansub][:shows].sort! do |a, b|
-          a[:episodes_finished_count] <=> -b[:episodes_finished_count]
+        episodes_done_count = 0
+        shows.each { |show| episodes_done_count += show.episodes.count(&:done?) }
+
+        addicted << {
+          fansub: fansub,
+          series_done: series_done.map(&:name),
+          series_done_count: series_done.count,
+          episodes_done_count: episodes_done_count
+        }
+
+        addicted.sort! do |a, b|
+          -a[:episodes_done_count] <=> b[:episodes_done_count]
         end
       end
     end

@@ -40,8 +40,14 @@ class Show
   end
 
   def count_episodes
-    Episode.get_episodes(self.name).count
+    episodes.count
   end
+
+  def complete?
+    episodes.each { |e| return false unless e.done? }
+    true
+  end
+    alias_method :done?, :complete?
 
   class << self
     def roles
