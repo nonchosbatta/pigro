@@ -27,7 +27,7 @@ class Pigro
 
   # return all the shows having the given status and fansub
   get '/api/v1/fansubs/:fansub/shows/all/:status' do |fansub, status|
-    result = Show.all status: status.downcase.to_sym, fansub: fansub
+    result = Show.all status: status.downcase.to_sym, :fansub.like => "%#{fansub}%"
     export result
   end
 
@@ -49,7 +49,7 @@ class Pigro
   get '/api/v1/users/:user/:role/shows/all/:status' do |user, role, status|
     export nil unless Show.role? role.to_sym
 
-    result = Show.all :status => status.downcase.to_sym, :"#{role.to_sym}" => user
+    result = Show.all :status => status.downcase.to_sym, :"#{role.to_sym}".like => "%#{user}%"
     export result
   end
 
