@@ -71,23 +71,24 @@ class Pigro
       Show.get_fansubs.each do |fansub|
         shows = Show.all :fansub.like => "%#{fansub}%"
 
-        series_done = []
-        shows.each { |show| series_done << show if show.done? }
-
+        series_done         = []
         episodes_done_count = 0
-        shows.each { |show| episodes_done_count += show.episodes.count(&:done?) }
+        shows.each do |show|
+          series_done << show.name if show.done?
+          episodes_done_count += show.episodes.count(&:done?)
+        end
 
         addicted << {
           fansub: fansub,
-          series_done: series_done.map(&:name),
+          series_done: series_done,
           series_done_count: series_done.count,
           episodes_done_count: episodes_done_count
         }
-
-        addicted.sort! do |a, b|
-          -a[:episodes_done_count] <=> b[:episodes_done_count]
-        end
       end
+    end
+
+    stats.sort! do |a, b|
+      -a[:episodes_done_count] <=> b[:episodes_done_count]
     end
 
     export stats
