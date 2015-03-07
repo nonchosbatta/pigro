@@ -12,21 +12,24 @@ require 'sinatra/base'
 require 'bcrypt'
 require 'data_mapper'
 require 'dm-sorting'
-require 'dm-sqlite-adapter'
+require 'dm-postgres-adapter'
 require 'rack/csrf'
 
 class Pigro < Sinatra::Base
-  db_path = File.join Dir.pwd, 'db'
-  db_name = ENV['RACK_ENV'] == 'test' ? 'spec' : 'app'
+  data = {
+    user: 'user',
+    pass: 'pass',
+    host: 'localhost',
+    db:   'pigro'
+  }
 
-  Dir.mkdir db_path unless Dir.exists? db_path
-  DataMapper.setup :default, "sqlite3://#{db_path}/#{db_name}.db"
+  DataMapper.setup :default, "postgres://#{data[:user]}:#{data[:pass]}@#{data[:host]}/#{data[:db]}"
 
   set :views, ['app/views']
   configure {
     use Rack::Session::Cookie,
       :path   => '/',
-      :secret => 'GwMpn8YBVKfR5pgXnVbSu1Aa7mcEuap0KW8BT'
+      :secret => 'GwMpn8YBVKmR5pgXnjbSu1Aa7mc9uap0oW8BT'
 
     use Rack::Csrf,
       :raise => true,
@@ -44,3 +47,4 @@ class Pigro < Sinatra::Base
   DataMapper.finalize
   DataMapper.auto_upgrade!
 end
+

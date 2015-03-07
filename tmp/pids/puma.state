@@ -1,0 +1,28 @@
+---
+pid: 23215
+config: !ruby/object:Puma::Configuration
+  options:
+    :min_threads: 0
+    :max_threads: 4
+    :quiet: false
+    :debug: false
+    :binds:
+    - unix:///home/deployer/pigro/tmp/sockets/pigro-puma.sock
+    :workers: 4
+    :daemon: false
+    :worker_directory: "/home/deployer/pigro"
+    :config_file: boot.rb
+    :mode: :http
+    :worker_timeout: 60
+    :worker_shutdown_timeout: 30
+    :directory: "/home/deployer/pigro"
+    :rackup: "/home/deployer/pigro/config.ru"
+    :pidfile: "/home/deployer/pigro/tmp/pids/puma.pid"
+    :state: "/home/deployer/pigro/tmp/pids/puma.state"
+    :redirect_stdout: "/home/deployer/pigro/log/puma.access.log"
+    :redirect_stderr: "/home/deployer/pigro/log/puma.error.log"
+    :redirect_append: true
+    :environment: production
+    :preload_app: true
+    :control_auth_token: 1517331d6e991eb9b3d721c10111612
+    :tag: pigro

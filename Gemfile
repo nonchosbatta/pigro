@@ -1,11 +1,11 @@
 source 'https://rubygems.org'
 
-gem 'thin'
+gem 'puma'
 gem 'sinatra'
-gem 'bcrypt-ruby'
+gem 'bcrypt'
 gem 'data_mapper'
 gem 'dm-sorting'
-gem 'dm-sqlite-adapter'
+gem 'dm-postgres-adapter'
 gem 'rack_csrf'
 
 # spec
