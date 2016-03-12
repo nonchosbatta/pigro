@@ -141,12 +141,62 @@ class Pigro
     if logged_in?
       current_user.logout!
       delete_login!
-      
+
       result[:status ] = :success
       result[:message] = 'Logout successful.'
     else
       result[:status ] = :error
       result[:message] = 'You are not logged in.'
+    end
+
+    export result
+  end
+
+  # create an episode
+  post '/api/v1/episode/add/?' do
+    result = {}
+
+    if not logged_in?
+      result[:status ] = :error
+      result[:message] = 'You need to log in.'
+    elsif not current_user.staffer?
+      result[:status ] = :error
+      result[:message] = 'Go home, this is not a place for you.'
+    elsif not fields? :name
+      result[:status ] = :error
+      result[:message] = 'To create an episode, you need at least to send its name.'
+    elsif not fields? :episode
+      result[:status ] = :error
+      result[:message] = 'To create an episode, you need at least to send its name and what episode it is.'
+    else
+      inputs = params.dup
+      inputs[:translator] ||= inputs[:translation]
+      inputs[:editor    ] ||= inputs[:editing    ]
+      inputs[:checker   ] ||= inputs[:checking   ]
+      inputs[:timer     ] ||= inputs[:timing     ]
+      inputs[:typesetter] ||= inputs[:typesetting]
+      inputs[:encoder   ] ||= inputs[:encoding   ]
+      inputs[:qchecker  ] ||= inputs[:qchecking  ]
+      inputs[:qc        ] ||= inputs[:qchecking  ]
+
+      data = {
+        :translation => inputs[:translation] ? inputs[:translation].to_sym : :nope,
+        :editing     => inputs[:editing    ] ? inputs[:editing    ].to_sym : :nope,
+        :checking    => inputs[:checking   ] ? inputs[:checking   ].to_sym : :nope,
+        :timing      => inputs[:timing     ] ? inputs[:timing     ].to_sym : :nope,
+        :typesetting => inputs[:typesetting] ? inputs[:typesetting].to_sym : :nope,
+        :encoding    => inputs[:encoding   ] ? inputs[:encoding   ].to_sym : :nope,
+        :qchecking   => inputs[:qchecking  ] ? inputs[:qchecking  ].to_sym : :nope,
+        :download    => inputs[:download   ]
+      }
+
+      if Episode.add params[:name], params[:episode].to_i, data
+        result[:status ] = :success
+        result[:message] = 'The episode has been created.'
+      else
+        result[:status ] = :error
+        result[:message] = 'Error creating the episode'
+      end
     end
 
     export result
